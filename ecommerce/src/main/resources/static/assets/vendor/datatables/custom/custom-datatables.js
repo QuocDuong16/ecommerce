@@ -43,7 +43,39 @@ $(function(){
 
 // Using API in callbacks
 $(function(){
-	$('#apiCallbacks').DataTable({
+	$('#apiCallbacks-1').DataTable({
+		"lengthMenu": [[5, 10, 25, 50], [5, 10, 25, 50, "All"]],
+		"language": {
+			"lengthMenu": "Display _MENU_ Records Per Page",
+		},
+		"initComplete": function(){
+			var api = this.api();
+			api.$('td').on('click', function(){
+			api.search(this.innerHTML).draw();
+		});
+		}
+	});
+});
+
+// Using API in callbacks
+$(function(){
+	$('#apiCallbacks-2').DataTable({
+		"lengthMenu": [[5, 10, 25, 50], [5, 10, 25, 50, "All"]],
+		"language": {
+			"lengthMenu": "Display _MENU_ Records Per Page",
+		},
+		"initComplete": function(){
+			var api = this.api();
+			api.$('td').on('click', function(){
+			api.search(this.innerHTML).draw();
+		});
+		}
+	});
+});
+
+// Using API in callbacks
+$(function(){
+	$('#apiCallbacks-3').DataTable({
 		"lengthMenu": [[5, 10, 25, 50], [5, 10, 25, 50, "All"]],
 		"language": {
 			"lengthMenu": "Display _MENU_ Records Per Page",

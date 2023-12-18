@@ -13,7 +13,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.ecommerce.entity.Category;
+import com.example.ecommerce.entity.Supplier;
+import com.example.ecommerce.entity.Account.Admin;
+import com.example.ecommerce.entity.Account.Customer;
+import com.example.ecommerce.entity.Account.Seller;
+import com.example.ecommerce.entity.Order.PurchaseOrder;
+import com.example.ecommerce.entity.Order.SalesOrder;
+import com.example.ecommerce.entity.Product.EnterpriseProduct;
+import com.example.ecommerce.entity.Product.IndividualProduct;
+import com.example.ecommerce.service.AccountService;
+import com.example.ecommerce.service.AdminService;
+import com.example.ecommerce.service.CategoryService;
+import com.example.ecommerce.service.CustomerService;
+import com.example.ecommerce.service.EnterpriseProductService;
+import com.example.ecommerce.service.IndividualProductService;
+import com.example.ecommerce.service.PurchaseOrderService;
+import com.example.ecommerce.service.SalesOrderService;
+import com.example.ecommerce.service.SellerService;
 import com.example.ecommerce.service.StatisticService;
+import com.example.ecommerce.service.SupplierService;
 
 @Controller
 @RequestMapping("/admin")
@@ -21,6 +40,33 @@ public class AdminController {
 	
 	@Autowired
 	private StatisticService statisticService;
+	
+	@Autowired
+	private AdminService adminService;
+	
+	@Autowired
+	private CustomerService customerService;
+	
+	@Autowired
+	private SellerService sellerService;
+	
+	@Autowired
+	private CategoryService categoryService;
+	
+	@Autowired
+	private IndividualProductService individualProductService;
+	
+	@Autowired
+	private EnterpriseProductService enterpriseProductService;
+	
+	@Autowired
+	private PurchaseOrderService purchaseOrderService;
+	
+	@Autowired
+	private SalesOrderService salesOrderService;
+	
+	@Autowired
+	private SupplierService supplierService;
 
 	@GetMapping("/")
 	public String home(Model model) {
@@ -65,32 +111,56 @@ public class AdminController {
 	}
 
 	@GetMapping("/data-accounts")
-	public String DataAccounts() {
+	public String DataAccounts(Model model) {
+		List<Admin> admins = adminService.getAdmins();
+		List<Customer> customers = customerService.getCustomers();
+		List<Seller> sellers = sellerService.getSellers();
+		
+		
+		model.addAttribute("admins", admins);
+		model.addAttribute("customers", customers);
+		model.addAttribute("sellers", sellers);
 		return "admin/data-accounts";
 	}
 
 	@GetMapping("/data-categories")
-	public String DataCategories() {
+	public String DataCategories(Model model) {
+		List<Category> categories = categoryService.getCategories();
+		
+		model.addAttribute("categories", categories);
 		return "admin/data-categories";
 	}
 
 	@GetMapping("/data-orders")
-	public String DataOrders() {
+	public String DataOrders(Model model) {
+		List<PurchaseOrder> purchaseOrders = purchaseOrderService.getPurchaseOrders();
+		List<SalesOrder> salesOrders = salesOrderService.getSalesOrders();
+		
+		model.addAttribute("purchaseOrders", purchaseOrders);
+		model.addAttribute("salesOrders", salesOrders);
 		return "admin/data-orders";
 	}
 
 	@GetMapping("/data-products")
-	public String DataProducts() {
+	public String DataProducts(Model model) {
+		List<IndividualProduct> individualProducts = individualProductService.getIndividualProducts();
+		List<EnterpriseProduct> enterpriseProducts = enterpriseProductService.getEnterpriseProducts();
+		
+		model.addAttribute("individualProducts", individualProducts);
+		model.addAttribute("enterpriseProducts", enterpriseProducts);
 		return "admin/data-products";
 	}
 
 	@GetMapping("/data-suppliers")
-	public String DataSuppliers() {
+	public String DataSuppliers(Model model) {
+		List<Supplier> suppliers = supplierService.getAllSuppliers();
+		
+		model.addAttribute("suppliers", suppliers);
 		return "admin/data-suppliers";
 	}
 
 	@GetMapping("/edit-account")
-	public String EditAccount() {
+	public String EditAccount(Model model) {
 		return "admin/edit-account";
 	}
 

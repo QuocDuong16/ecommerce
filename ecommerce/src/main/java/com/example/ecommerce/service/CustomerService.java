@@ -19,6 +19,10 @@ import com.example.ecommerce.repository.CustomerRepository;
 public class CustomerService {
 	@Autowired
 	private CustomerRepository customerRepository;
+	
+	public List<Customer> getCustomers() {
+		return customerRepository.findAll();
+	}
 
 	public List<OrderInfo> findTopFiveCustomers() {
 		List<OrderInfo> orderInfos = new ArrayList<OrderInfo>();

@@ -20,6 +20,10 @@ public class SellerService {
 
 	@Autowired
 	private SellerRepository sellerRepository;
+	
+	public List<Seller> getSellers() {
+		return sellerRepository.findAll();
+	}
 
 	public List<OrderInfo> findTopFiveSellers() {
 		List<OrderInfo> orderInfos = new ArrayList<OrderInfo>();

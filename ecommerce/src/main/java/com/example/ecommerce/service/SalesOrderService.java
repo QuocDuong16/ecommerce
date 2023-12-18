@@ -115,4 +115,8 @@ public class SalesOrderService {
 		salesOrder.setCustomer(customer);
 		return salesOrderRepository.save(salesOrder);
 	}
+	
+	public List<SalesOrder> getSalesOrders() {
+		return salesOrderRepository.findAll();
+	}
 }
