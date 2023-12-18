@@ -1,5 +1,6 @@
 package com.example.ecommerce.entity.Product;
 
+import java.sql.Blob;
 import java.util.List;
 
 import com.example.ecommerce.entity.CartItem;
@@ -34,7 +35,7 @@ public class IndividualProduct extends Product {
 		this.seller = seller;
 	}
 
-	public IndividualProduct(int productId, String productName, String productImage, float productPrice,
+	public IndividualProduct(int productId, String productName, Blob productImage, float productPrice,
 			String productDescription, Category category, int productAmount, String color,
 			List<OrderDetail> orderDetails, List<CartItem> cartItems, Seller seller) {
 		super(productId, productName, productImage, productPrice, productDescription, category, productAmount, color,

@@ -1,5 +1,6 @@
 package com.example.ecommerce.entity.Product;
 
+import java.sql.Blob;
 import java.util.List;
 
 import com.example.ecommerce.entity.CartItem;
@@ -17,6 +18,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -33,7 +35,8 @@ public abstract class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int productId;
 	private String productName;
-	private String productImage;
+	@Lob
+	private Blob productImage;
 	private float productPrice;
 	private String productDescription;
 	
@@ -53,7 +56,7 @@ public abstract class Product {
 		super();
 	}
 
-	public Product(int productId, String productName, String productImage, float productPrice,
+	public Product(int productId, String productName, Blob productImage, float productPrice,
 			String productDescription, Category category, int productAmount, String color,
 			List<OrderDetail> orderDetails, List<CartItem> cartItems) {
 		super();
@@ -85,11 +88,11 @@ public abstract class Product {
 		this.productName = productName;
 	}
 
-	public String getProductImage() {
+	public Blob getProductImage() {
 		return productImage;
 	}
 
-	public void setProductImage(String productImage) {
+	public void setProductImage(Blob productImage) {
 		this.productImage = productImage;
 	}
 
