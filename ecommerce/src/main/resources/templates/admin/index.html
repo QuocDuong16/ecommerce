@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Meta -->
+	<meta name="description" content="Moonlight - Responsive Bootstrap 5 Dashboard Template">
+	<meta name="author" content="Bootstrap Gallery" />
+	<link rel="canonical" href="https://www.bootstrap.gallery/">
+	<meta property="og:url" content="https://www.bootstrap.gallery">
+	<meta property="og:title" content="Admin Templates - Dashboard Templates | Bootstrap Gallery">
+	<meta property="og:description" content="Marketplace for Bootstrap Admin Dashboards">
+	<meta property="og:type" content="Website">
+	<meta property="og:site_name" content="Bootstrap Gallery">
+	<link rel="shortcut icon" th:href="@{/assets/images/favicon.svg}">
+
+	<!-- Title -->
+	<title>Modern Admin Dashboards</title>
+
+
+	<!-- *************
+			************ Common Css Files *************
+		************ -->
+
+	<!-- Animated css -->
+	<link rel="stylesheet" th:href="@{/assets/css/animate.css}">
+
+	<!-- Bootstrap font icons css -->
+	<link rel="stylesheet" th:href="@{/assets/fonts/bootstrap/bootstrap-icons.css}">
+
+	<!-- Main css -->
+	<link rel="stylesheet" th:href="@{/assets/css/main.min.css}">
+
+
+	<!-- *************
+			************ Vendor Css Files *************
+		************ -->
+
+	<!-- Scrollbar CSS -->
+	<link rel="stylesheet" th:href="@{/assets/vendor/overlay-scroll/OverlayScrollbars.min.css}">
+
+	<!-- tagsCloud Keywords CSS -->
+	<link rel="stylesheet" th:href="@{/assets/vendor/tagsCloud/tagsCloud.css}" />
+
+	<!-- daterangepicker CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker@3.1.0/daterangepicker.css">
+</head>
+
+<body>
+
+	<!-- Page wrapper start -->
+	<div class="page-wrapper">
+
+		<!-- Sidebar wrapper start -->
+		<nav class="sidebar-wrapper">
+
+			<!-- Sidebar brand starts -->
+			<div class="sidebar-brand">
+				<a th:href="@{/admin/}" class="logo">
+					<img th:src="@{/assets/images/logo.svg}" alt="Moonlight Admin Dashboard" />
+				</a>
+			</div>
+			<!-- Sidebar brand starts -->
+
+			<!-- Sidebar menu starts -->
+			<div class="sidebar-menu">
+				<div class="sidebarMenuScroll">
+					<ul>
+						<li class="active">
+							<a th:href="@{/admin/}" class="current-page">
+								<i class="bi bi-house"></i>
+								Dashboards
+							</a>
+						</li>
+						<li class="sidebar-dropdown">
+							<a href="#">
+								<i class="bi bi-handbag"></i>
+								<span class="menu-text">Product</span>
+							</a>
+							<div class="sidebar-submenu">
+								<ul>
+									<li>
+										<a th:href="@{/admin/add-product}" >Add Product</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="sidebar-dropdown">
+							<a href="#">
+								<i class="bi bi-card-list"></i>
+								<span class="menu-text">Category</span>
+							</a>
+							<div class="sidebar-submenu">
+								<ul>
+									<li>
+										<a th:href="@{/admin/add-category}" >Add Category</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="sidebar-dropdown">
+							<a href="#">
+								<i class="bi bi-building"></i>
+								<span class="menu-text">Supplier</span>
+							</a>
+							<div class="sidebar-submenu">
+								<ul>
+									<li>
+										<a th:href="@{/admin/add-supplier}">Add Supplier</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="sidebar-dropdown">
+							<a href="#">
+								<i class="bi bi-journals"></i>
+								<span class="menu-text">Purchase Orders</span>
+							</a>
+							<div class="sidebar-submenu">
+								<ul>
+									<li>
+										<a th:href="@{/admin/add-purchase-order}">Add Purchase Order</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="sidebar-dropdown">
+							<a href="#">
+								<i class="bi bi-window-split"></i>
+								<span class="menu-text">Tables</span>
+							</a>
+							<div class="sidebar-submenu">
+								<ul>
+									<li>
+										<a th:href="@{/admin/data-orders}">Data Orders</a>
+									</li>
+									<li>
+										<a th:href="@{/admin/data-suppliers}">Data Suppliers</a>
+									</li>
+									<li>
+										<a th:href="@{/admin/data-categories}">Data Categories</a>
+									</li>
+									<li>
+										<a th:href="@{/admin/data-accounts}">Data Accounts</a>
+									</li>
+									<li>
+										<a th:href="@{/admin/data-products}">Data Products</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="sidebar-dropdown">
+							<a href="#">
+								<i class="bi bi-x-diamond"></i>
+								<span class="menu-text">Authentication</span>
+							</a>
+							<div class="sidebar-submenu">
+								<ul>
+									<li>
+										<a th:href="@{/admin/login}">Login</a>
+									</li>
+									<li>
+										<a th:href="@{/admin/signup}">Signup</a>
+									</li>
+									<li>
+										<a th:href="@{/admin/error}">Error</a>
+									</li>
+									<li>
+										<a th:href="@{/admin/maintenance}">Maintenance</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- Sidebar menu ends -->
+
+		</nav>
+		<!-- Sidebar wrapper end -->
+
+		<!-- *************
+				************ Main container start *************
+			************* -->
+		<div class="main-container">
+
+			<!-- Page header starts -->
+			<div class="page-header">
+
+				<div class="toggle-sidebar" id="toggle-sidebar"><i class="bi bi-list"></i></div>
+
+				<!-- Breadcrumb start -->
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<i class="bi bi-house"></i>
+						<a th:href="@{/admin/}">Home</a>
+					</li>
+					<li class="breadcrumb-item breadcrumb-active" aria-current="page">Dashboards</li>
+				</ol>
+				<!-- Breadcrumb end -->
+
+				<!-- Header actions ccontainer start -->
+				<div class="header-actions-container">
+
+					<!-- Header actions start -->
+					<ul class="header-actions">
+						<li class="d-none d-md-block">
+							<a href="#" id="countries">
+								<img th:src="@{/assets/images/flags/1x1/vn.svg}" class="flag-img"
+									alt="AI Admin Dashboards" />
+							</a>
+						</li>
+						<li class="dropdown">
+							<a href="#" id="userSettings" class="user-settings" data-toggle="dropdown"
+								aria-haspopup="true">
+								<span class="user-name d-none d-md-block">Abigale Heaney</span>
+								<span class="avatar">
+									<img th:src="@{/assets/images/user3.png}" alt="Admin Templates">
+									<span class="status online"></span>
+								</span>
+							</a>
+							<div class="dropdown-menu dropdown-menu-end" aria-labelledby="userSettings">
+								<div class="header-profile-actions">
+									<a th:href="@{/admin/login}">Logout</a>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<!-- Header actions end -->
+
+				</div>
+				<!-- Header actions ccontainer end -->
+
+			</div>
+			<!-- Page header ends -->
+
+			<!-- Content wrapper scroll start -->
+			<div class="content-wrapper-scroll">
+
+				<!-- Content wrapper start -->
+				<div class="content-wrapper">
+
+					<!-- Row start -->
+					<div class="row">
+						<div class="col-sm-6 col-12">
+							<canvas id="salesComparisonChart" class="p-2" style="background-color: #fff; max-height: 200px; height: 200px;"></canvas>
+							<div class="stats-tile">
+								<div class="sale-icon-bdr">
+									<i class="bi bi-pie-chart"></i>
+								</div>
+								<div class="sale-details">
+									<h5>Sales</h5>
+									<h3 class="text-blue" th:text="${totalSalesCurrentYear}"></h3>
+									<p th:class="${salesComparisonPercentage < 0} ? 'growth text-red' : 'growth text-blue'">
+										<span th:text="${salesComparisonPercentage < 0} ? 'Decreased' : 'Increased'"></span>
+										<span th:text="${salesComparisonPercentage}"></span>%
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-12">
+							<canvas id="revenueComparisonChart" class="p-2" style="background-color: #fff; max-height: 200px; height: 200px;"></canvas>
+							<div class="stats-tile">
+								<div class="sale-icon-bdr">
+									<i class="bi bi-box-seam"></i>
+								</div>
+								<div class="sale-details">
+									<h5>Revenue</h5>
+									<h3 class="text-blue"><span th:text="${totalRevenueCurrentYear}"></span> VND</h3>
+									<p th:class="${revenueComparisonPercentage < 0} ? 'growth text-red' : 'growth text-blue'">
+										<span th:text="${revenueComparisonPercentage < 0} ? 'Decreased' : 'Increased'"></span>
+										<span th:text="${revenueComparisonPercentage}"></span>%
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Row end -->
+
+					<!-- Row start -->
+					<div class="row">
+						<div class="col-xxl-12 col-sm-12 col-12">
+							<div class="card">
+								<div class="card-header">
+									<div class="card-title">Sales statistics</div>
+									<select id="js-select" class="form-select w-50">
+										<option value="month">This year</option>
+										<option value="week">This week</option>
+									</select>
+								</div>
+								<div class="card-body">
+									<canvas id="revenueByMonthChart" style="min-height: 415px;"></canvas>
+									<canvas hidden id="revenueByDayOfWeekChart" style="min-height: 415px;"></canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Row end -->
+
+					<!-- Row start -->
+					<div class="row">
+						<div class="col-xxl-12 col-sm-12 col-12">
+							<div class="card">
+								<div class="card-header">
+									<div class="card-title">Top 10 best-selling products</div>
+									<div>
+										<input type="text" readonly id="productDateRange" class="form-control"
+											placeholder="Chọn khoảng thời gian">
+									</div>
+								</div>
+								<div class="card-body">
+									<canvas id="topProductsChart"></canvas>
+								</div>
+							</div>
+						</div>
+						<div class="col-xxl-6 col-sm-6 col-12">
+							<div class="card">
+								<div class="card-header">
+									<div class="card-title">Top 5 customers who buy the most</div>
+									<div>
+										<input type="text" readonly id="customerDateRange" class="form-control"
+											placeholder="Chọn khoảng thời gian">
+									</div>
+								</div>
+								<div class="card-body">
+									<canvas id="topCustomersChart"></canvas>
+								</div>
+							</div>
+						</div>
+						<div class="col-xxl-6 col-sm-6 col-12">
+							<div class="card">
+								<div class="card-header">
+									<div class="card-title">Top 5 best sales people</div>
+									<div>
+										<input type="text" readonly id="sellerDateRange" class="form-control"
+											placeholder="Chọn khoảng thời gian">
+									</div>
+								</div>
+								<div class="card-body">
+									<canvas id="topSellersChart"></canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Row end -->
+
+				</div>
+				<!-- Content wrapper end -->
+
+				<!-- App Footer start -->
+				<div class="app-footer">
+					<span>© Bootstrap Gallery 2023</span>
+				</div>
+				<!-- App footer end -->
+
+			</div>
+			<!-- Content wrapper scroll end -->
+
+		</div>
+		<!-- *************
+				************ Main container end *************
+			************* -->
+
+	</div>
+	<!-- Page wrapper end -->
+
+	<!-- *************
+			************ Required JavaScript Files *************
+		************* -->
+	<!-- Required jQuery first, then Bootstrap Bundle JS -->
+	<script th:src="@{/assets/js/jquery.min.js}"></script>
+	<script th:src="@{/assets/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/assets/js/modernizr.js}"></script>
+	<script th:src="@{/assets/js/moment.js}"></script>
+
+	<!-- *************
+			************ Vendor Js Files *************
+		************* -->
+
+	<!-- Overlay Scroll JS -->
+	<script th:src="@{/assets/vendor/overlay-scroll/jquery.overlayScrollbars.min.js}"></script>
+	<script th:src="@{/assets/vendor/overlay-scroll/custom-scrollbar.js}"></script>
+
+	<!-- Apex Charts -->
+	<script th:src="@{/assets/vendor/apex/apexcharts.min.js}"></script>
+	<script th:src="@{/assets/vendor/apex/custom/ecommerce/visitors.js}"></script>
+	<script th:src="@{/assets/vendor/apex/custom/ecommerce/customers.js}"></script>
+
+	<!-- jQcloud Keywords -->
+	<script th:src="@{/assets/vendor/tagsCloud/tagsCloud.js}"></script>
+
+	<!-- Vector Maps -->
+	<script th:src="@{/assets/vendor/jvectormap/jquery-jvectormap-2.0.5.min.js}"></script>
+	<script th:src="@{/assets/vendor/jvectormap/world-mill-en.js}"></script>
+	<script th:src="@{/assets/vendor/jvectormap/gdp-data.js}"></script>
+	<script th:src="@{/assets/vendor/jvectormap/custom/world-map-markers2.js}"></script>
+
+	<!-- daterangepicker -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/daterangepicker@3.1.0/daterangepicker.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+	<!-- Main Js Required -->
+	<script th:src="@{/assets/js/main.js}"></script>
+
+	<script th:inline="javascript">
+		window.onload = function () {
+			/*<![CDATA[*/
+			var revenue12MonthList = /*[[${revenue12MonthList}]]*/ 'defaultValue';
+
+			var revenueDayOfWeekList = /*[[${revenueDayOfWeekList}]]*/ 'defaultValue';
+
+			var annualRevenueyears = /*[[${annualRevenueyears}]]*/ 'defaultValue';
+			var revenues = /*[[${revenues}]]*/ 'defaultValue';
+
+			var customerNames = /*[[${customerNames}]]*/ 'defaultValue';
+			var quantitieCustomers = /*[[${quantitieCustomers}]]*/ 'defaultValue';
+
+			var sellerNames = /*[[${sellerNames}]]*/ 'defaultValue';
+			var quantitieSellers = /*[[${quantitieSellers}]]*/ 'defaultValue';
+
+			var productNames = /*[[${productNames}]]*/ 'defaultValue';
+			var quantitieProducts = /*[[${quantitieProducts}]]*/ 'defaultValue';
+			/*]]>*/
+
+			function getRandomColor() {
+				var letters = '0123456789ABCDEF';
+				var color = '#';
+				for (var i = 0; i < 6; i++) {
+					color += letters[Math.floor(Math.random() * 16)];
+				}
+				return color;
+			}
+
+
+
+			function updateCustomerData(customerNames, quantitieCustomers) {
+				let chartStatus = Chart.getChart("topCustomersChart");
+				if (chartStatus != undefined) {
+					chartStatus.destroy();
+				}
+				// Dữ liệu mẫu - bạn cần thay thế nó bằng dữ liệu thực tế từ hệ thống của bạn
+				var topCustomersData = {
+					labels: customerNames,
+					datasets: [{
+						label: 'Số lượng mua',
+						data: quantitieCustomers,
+						backgroundColor: 'rgba(75, 192, 192, 0.2)',
+						borderColor: 'rgba(75, 192, 192, 1)',
+						borderWidth: 1
+					}]
+				};
+				// Tạo biểu đồ top khách hàng
+				var canvas = document.getElementById('topCustomersChart');
+				var topCustomersCtx = canvas.getContext('2d');
+				var topCustomersChart = new Chart(topCustomersCtx, {
+					type: 'bar',
+					data: topCustomersData
+				});
+			}
+
+			function updateSellerData(sellerNames, quantitieSellers) {
+				let chartStatus = Chart.getChart("topSellersChart");
+				if (chartStatus != undefined) {
+					chartStatus.destroy();
+				}
+				var topSellersData = {
+					labels: sellerNames,
+					datasets: [{
+						label: 'Số lượng bán',
+						data: quantitieSellers,
+						backgroundColor: 'rgba(255, 99, 132, 0.2)',
+						borderColor: 'rgba(255, 99, 132, 1)',
+						borderWidth: 1
+					}]
+				};
+				// Tạo biểu đồ top người bán
+				var canvas = document.getElementById('topSellersChart');
+				var topSellersCtx = canvas.getContext('2d');
+				var topSellersChart = new Chart(topSellersCtx, {
+					type: 'bar',
+					data: topSellersData
+				});
+			}
+
+			function updateProductData(productNames, quantitieProducts) {
+				let chartStatus = Chart.getChart("topProductsChart");
+				if (chartStatus != undefined) {
+					chartStatus.destroy();
+				}
+				var topProductsData = {
+					labels: productNames,
+					datasets: [{
+						label: 'Số lượng bán',
+						data: quantitieProducts,
+						backgroundColor: 'rgba(255, 205, 86, 0.2)',
+						borderColor: 'rgba(255, 205, 86, 1)',
+						borderWidth: 1
+					}]
+				};
+				// Tạo biểu đồ top sản phẩm
+				var canvas = document.getElementById('topProductsChart');
+				var topProductsCtx = canvas.getContext('2d');
+				var topProductsChart = new Chart(topProductsCtx, {
+					type: 'bar',
+					data: topProductsData
+				});
+
+			}
+
+			updateCustomerData(customerNames, quantitieCustomers);
+			updateSellerData(sellerNames, quantitieSellers);
+			updateProductData(productNames, quantitieProducts);
+
+			var revenueByMonthData = {
+				labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+				datasets: [{
+					label: 'Doanh thu',
+					data: revenue12MonthList,
+					backgroundColor: 'rgba(54, 162, 235, 0.2)',
+					borderColor: 'rgba(54, 162, 235, 1)',
+					borderWidth: 1
+				}]
+			};
+			// Tạo biểu đồ doanh thu theo tháng
+			var revenueByMonthCtx = document.getElementById('revenueByMonthChart').getContext('2d');
+			var revenueByMonthChart = new Chart(revenueByMonthCtx, {
+				type: 'bar',
+				data: revenueByMonthData
+			});
+
+
+			var revenueByDayOfWeekData = {
+				labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+				datasets: [{
+					label: 'Doanh thu',
+					data: revenueDayOfWeekList,
+					backgroundColor: 'rgba(153, 102, 255, 0.2)',
+					borderColor: 'rgba(153, 102, 255, 1)',
+					borderWidth: 1
+				}]
+			};
+			// Tạo biểu đồ doanh thu theo thứ trong tuần
+			var revenueByDayOfWeekCtx = document.getElementById('revenueByDayOfWeekChart').getContext('2d');
+			var revenueByDayOfWeekChart = new Chart(revenueByDayOfWeekCtx, {
+				type: 'bar',
+				data: revenueByDayOfWeekData
+			});
+
+			// Tạo biểu đồ so sánh doanh thu giữa các năm (biểu đồ tròn)
+			var revenueComparisonCtx = document.getElementById('revenueComparisonChart').getContext('2d');
+			var revenueComparisonChart = new Chart(revenueComparisonCtx, {
+				type: 'doughnut',
+				data: {
+					labels: annualRevenueyears,
+					datasets: [{
+						label: 'Doanh thu',
+						data: revenues,
+						backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 205, 86, 0.2)'],
+						borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 205, 86, 1)'],
+						borderWidth: 1
+					}]
+				},
+				options: {
+					responsive: true,
+					plugins: {
+						legend: {
+							display: true,
+							position: 'right'
+						}
+					}
+				}
+			});
+			// Tạo biểu đồ tỉ lệ doanh số giữa các năm (biểu đồ đường)
+			/*<![CDATA[*/
+			var salesComparisonCtx = document.getElementById('salesComparisonChart').getContext('2d');
+			var salesComparisonChart = new Chart(salesComparisonCtx, {
+				type: 'line',
+				data: {
+					labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+					datasets: [
+						/*[# th:each="data : ${annualSalesInfos}"]*/
+						{
+							label: /*[[${data.year()}]]*/ '',
+							data: /*[[${data.salesList()}]]*/[],
+							fill: false,
+							borderColor: getRandomColor(),
+							borderWidth: 1
+						},
+						/*[/]*/
+					]
+				},
+				options: {
+					responsive: true,
+					plugins: {
+						legend: {
+							display: true,
+							position: 'right'
+						}
+					}
+				}
+			});
+			/*]]>*/
+
+			// Sự kiện thay đổi khi lựa chọn thời gian thay đổi
+			$('#customerDateRange').daterangepicker({
+				autoUpdateInput: false,
+				locale: {
+					format: 'DD/MM/YYYY',
+					separator: ' - ',
+				},
+			});
+
+			$('#customerDateRange').on('apply.daterangepicker', function (ev, picker) {
+				$(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+
+				$.ajax({
+					type: "POST",
+					url: "/statistic",
+					data:
+					{
+						startDate: picker.startDate.format('YYYY/MM/DD'),
+						endDate: picker.endDate.format('YYYY/MM/DD'),
+						filterType: "customer"
+					},
+					success: function (data) {
+						updateCustomerData(data.customerNames, data.quantitieCustomers);
+					}
+				});
+			});
+
+			$('#sellerDateRange').daterangepicker({
+				autoUpdateInput: false,
+				locale: {
+					format: 'DD/MM/YYYY',
+					separator: ' - ',
+				},
+			});
+
+			$('#sellerDateRange').on('apply.daterangepicker', function (ev, picker) {
+				$(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+
+				$.ajax({
+					type: "POST",
+					url: "/statistic",
+					data:
+					{
+						startDate: picker.startDate.format('YYYY/MM/DD'),
+						endDate: picker.endDate.format('YYYY/MM/DD'),
+						filterType: "seller"
+					},
+					success: function (data) {
+						updateSellerData(data.sellerNames, data.quantitieSellers);
+					}
+				});
+			});
+
+			$('#productDateRange').daterangepicker({
+				autoUpdateInput: false,
+				locale: {
+					format: 'DD/MM/YYYY',
+					separator: ' - ',
+				},
+			});
+
+			$('#productDateRange').on('apply.daterangepicker', function (ev, picker) {
+				$(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+
+				$.ajax({
+					type: "POST",
+					url: "/statistic",
+					data:
+					{
+						startDate: picker.startDate.format('YYYY/MM/DD'),
+						endDate: picker.endDate.format('YYYY/MM/DD'),
+						filterType: "product"
+					},
+					success: function (data) {
+						updateProductData(data.productNames, data.quantitieProducts);
+					}
+				});
+			});
+
+			var selectElement = document.getElementById('js-select');
+			var revenueByMonthChart = document.getElementById('revenueByMonthChart');
+			var revenueByDayOfWeekChart = document.getElementById('revenueByDayOfWeekChart');
+
+			// Gắn sự kiện change cho select
+			selectElement.addEventListener('change', function () {
+				var selectedValue = selectElement.value;
+
+				revenueByMonthChart.hidden = true;
+				revenueByDayOfWeekChart.hidden = true;
+
+				if (selectedValue === 'month') {
+					revenueByMonthChart.hidden = false;
+				} else if (selectedValue === 'week') {
+					revenueByDayOfWeekChart.hidden = false;
+				}
+			});
+		}
+	</script>
+
+</body>
+
+</html>

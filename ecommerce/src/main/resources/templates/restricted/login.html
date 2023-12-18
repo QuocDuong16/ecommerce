@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:fragment="layout(content)">
+<head>
+  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}" />
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Mukta:300,400,700}" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}" />
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/aos.css}" />
+</head>
+<body class="bg-light">
+	 <div class="site-wrap">
+				<header class="site-navbar" role="banner">
+		      	
+		    </header>
+   		 <div >
+				
+				 <div class="container p-5">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="card">
+                        <div class="card-header text-center fs-4">Login Page</div>
+
+                        <div th:if="${param.error}" class="alert alert-danger">
+                            Invalid username & Password
+                        </div>
+
+                        <div th:if="${param.logout}" class="alert alert-success">
+                            Logout Sucessfully
+                        </div>
+
+                        <div class="card-body">
+                            <form  th:action="@{/login}" method="post">
+
+                                <div class="mb-3">
+                                    <label>Enter Email</label>
+                                     <input  type="email" id="username"   class="form-control" name="username" placeholder="Enter your email" required>
+                                </div>
+
+                               <div class="mb-3">
+								    <label>Enter Password</label>
+								    <input  type="password" id="password"  class="form-control" name="password" placeholder="Enter your password" required>
+								</div>
+
+                                
+                                <button  type="submit" class="btn btn-primary col-md-12">Login</button>
+                            </form>
+                            <a th:href="@{/register}">Register</a> <br>
+                            <a th:href="@{/forgot}">Forgot your password?</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+				
+			</div>
+   		  <footer class="site-footer border-top">
+     
+    </footer>
+	 </div>
+
+	
+
+
+	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/js/jquery-ui.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/js/aos.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

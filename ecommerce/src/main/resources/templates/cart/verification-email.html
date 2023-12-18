@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Email Template</title>
+	<style>
+		tbody {
+			font-family: Arial, sans-serif;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-top: 20px;
+		}
+
+		th,
+		td {
+			border: 1px solid #dddddd;
+			text-align: left;
+			padding: 8px;
+		}
+
+		th {
+			background-color: #f2f2f2;
+		}
+	</style>
+</head>
+
+<body>
+	<p>Xác nhận đơn hàng của bạn:</p>
+	<p>Tên khách hàng: <span th:text="${customer.fullName}"></span></p>
+	<p>Địa chỉ: <span th:text="${customer.address}"></span></p>
+	<p>Email: <span th:text="${customer.email}"></span></p>
+	<table class="table site-block-order-table mb-5">
+		<thead>
+			<th>Product</th>
+			<th>Quantity</th>
+			<th>Total</th>
+		</thead>
+		<tbody>
+			<tr th:if="${not #lists.isEmpty(orderDetails)}" th:each="item : ${orderDetails}">
+				<td th:text="${item.product.productName}"></td>
+				<td th:text="${item.quantity}"></td>
+				<td th:text="'$' + ${item.product.productPrice * item.quantity}"></td>
+			</tr>
+			<!-- Display a message if orderDetails is empty -->
+			<tr th:if="${#lists.isEmpty(orderDetails)}">
+				<td colspan="3">No order details available</td>
+			</tr>
+
+		</tbody>
+	</table>
+	<p>Total: <span th:text="${orderTotal}"></span></p>
+</body>
+
+</html>
