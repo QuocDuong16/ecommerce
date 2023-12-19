@@ -1,29 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:fragment="layout(content)">
+	th:replace="base::layout(~{::section})">
 <head>
-  
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
 
-    <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}" />
-    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Mukta:300,400,700}" />
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}" />
-    <link rel="stylesheet" th:href="@{/css/jquery-ui.css}" />
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
-    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}" />
-    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}" />
-    <link rel="stylesheet" th:href="@{/css/aos.css}" />
 </head>
-<body class="bg-light">
-	 <div class="site-wrap">
-				<header class="site-navbar" role="banner">
-		      	
-		    </header>
-   		 <div >
-				
-				<div class="container p-3">
+<body>
+	<section>
+		<div class="container p-3">
 			<div class="row">
 				<div class="col-md-6 offset-md-3">
 					<div class="card">
@@ -75,24 +60,6 @@
 				</div>
 			</div>
 		</div>
-			</div>
-   		  <footer class="site-footer border-top">
-     
-    </footer>
-	 </div>
-
-	
-
-
-	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
-<script th:src="@{/js/jquery-ui.js}"></script>
-<script th:src="@{/js/popper.min.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/owl.carousel.min.js}"></script>
-<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
-<script th:src="@{/js/aos.js}"></script>
-<script th:src="@{/js/main.js}"></script>
-
+	</section>
 </body>
 </html>
-
