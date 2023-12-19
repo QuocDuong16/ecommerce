@@ -70,7 +70,7 @@ public class CustomerService {
 	public Customer findById(int accountId) {
 		return customerRepository.findById(accountId).orElse(null);
 	}
-	public void update(Customer customer) {
-		customerRepository.save(customer);
+	public Customer update(Customer customer) {
+		return customerRepository.save(customer);
 	}
 }

@@ -56,10 +56,11 @@ public class SalesOrderController {
 
 	@PostMapping("/confirm-send-email")
 	public String confirmSendEmail(@ModelAttribute Customer customer) {
-		customerService.update(customer);
+		Customer updatedCustomer = customerService.update(customer);
 		try {
-			emailService.sendVerificationEmail(customer, "Xác nhân email",
-					orderDetailService.getOrderDetailsForPayment(customer));
+			emailService.sendVerificationEmail(updatedCustomer, "Xác nhân email",
+					orderDetailService.getOrderDetailsForPayment(updatedCustomer));
+			
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
