@@ -17,6 +17,8 @@ import com.example.ecommerce.entity.Account.Seller;
 import com.example.ecommerce.entity.Product.EnterpriseProduct;
 import com.example.ecommerce.entity.Product.IndividualProduct;
 import com.example.ecommerce.entity.Product.Product;
+import com.example.ecommerce.repository.EnterpriseProductRepository;
+import com.example.ecommerce.repository.IndividualProductRepository;
 import com.example.ecommerce.repository.ProductRepository;
 
 @Service
@@ -24,59 +26,46 @@ public class ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
+	@Autowired
+	private CategoryService categoryService;
+	@Autowired
+	private SupplierService supplierService;
+	@Autowired
+	private SellerService sellerService;
+	@Autowired
+	private IndividualProductRepository individualProductRepository;
+	@Autowired
+	private EnterpriseProductRepository enterpriseProductRepository;
 
 	public void addProduct(String productName, int productCategoryId, int productAmount, float productPrice,
 			String productDescription, String productColor, int supplierId, int sellerId, boolean radio_product_type) {
-
-		Product product;
-		if (radio_product_type) {
+		System.out.println("3");
+		Category category = categoryService.findById(productCategoryId);
+		if (!radio_product_type) {
 			EnterpriseProduct enterpriseProduct = new EnterpriseProduct();
-			Supplier supplier = new Supplier();
-			supplier.setSupplierId(supplierId);
+			Supplier supplier = supplierService.findById(supplierId);
 			enterpriseProduct.setSupplier(supplier);
-			product = enterpriseProduct;
+			enterpriseProduct.setProductName(productName);
+			enterpriseProduct.setProductAmount(productAmount);
+			enterpriseProduct.setProductPrice(productPrice);
+			enterpriseProduct.setProductDescription(productDescription);
+			enterpriseProduct.setColor(productColor);
+			enterpriseProduct.setCategory(category);
+			System.out.println("1");
+			enterpriseProductRepository.save(enterpriseProduct);
 		} else {
 			IndividualProduct individualProduct = new IndividualProduct();
-			Seller seller = new Seller();
-			seller.setAccountId(sellerId);
+			Seller seller = sellerService.findById(sellerId);
 			individualProduct.setSeller(seller);
-			product = individualProduct;
+			individualProduct.setProductName(productName);
+			individualProduct.setProductAmount(productAmount);
+			individualProduct.setProductPrice(productPrice);
+			individualProduct.setProductDescription(productDescription);
+			individualProduct.setColor(productColor);
+			individualProduct.setCategory(category);
+			System.out.println("2");
+			individualProductRepository.save(individualProduct);
 		}
-
-// Common properties for both types
-		product.setProductName(productName);
-		product.setProductAmount(productAmount);
-		product.setProductPrice(productPrice);
-		product.setProductDescription(productDescription);
-		product.setColor(productColor);
-
-		Category category = new Category();
-		category.setCategoryId(productCategoryId);
-		product.setCategory(category);
-
-		productRepository.save(product);
-	}
-	public void addProduct(String productName, int supplierId, int sellerId, boolean radio_product_type) {
-
-		Product product;
-		if (radio_product_type) {
-			EnterpriseProduct enterpriseProduct = new EnterpriseProduct();
-			Supplier supplier = new Supplier();
-			supplier.setSupplierId(supplierId);
-			enterpriseProduct.setSupplier(supplier);
-			product = enterpriseProduct;
-		} else {
-			IndividualProduct individualProduct = new IndividualProduct();
-			Seller seller = new Seller();
-			seller.setAccountId(sellerId);
-			individualProduct.setSeller(seller);
-			product = individualProduct;
-		}
-
-// Common properties for both types
-		product.setProductName(productName);
-
-		productRepository.save(product);
 	}
 
 	public List<OrderInfo> findTopTenProducts() {

@@ -96,33 +96,23 @@ public class AdminController {
 		
 		return "admin/add-product";
 	}
-//	@PostMapping("/admin/add-to-product")
-//	public String addProduct(@RequestParam("productName") String productName,
-//			@RequestParam("productCategoryId") int productCategoryId,
-//	                         @RequestParam("productAmount") int productAmount,
-//	                         @RequestParam("productPrice") float productPrice,
-//	                         @RequestParam("productDescription") String productDescription,
-//	                         @RequestParam("productColor") String productColor,
-//	                         @RequestParam("supplierId") int supplierId,
-//	                         @RequestParam("sellerId") int sellerId,
-//	                         @RequestParam("radio_product_type") boolean radio_product_type) {
-//	    // Your existing code to handle product creation
-//	    productService.addProduct(productName,productCategoryId, productAmount, productPrice, productDescription, productColor, supplierId, sellerId, radio_product_type);
-//
-//	    // Redirect or return the appropriate view
-//	    return "redirect:/admin/add-product"; // Change this to your success view
-//	}
-	@PostMapping("/admin/add-to-product")
+	@PostMapping("/add-to-product")
 	public String addProduct(@RequestParam("productName") String productName,
+							@RequestParam("productCategoryId") int productCategoryId,
+	                         @RequestParam("productAmount") int productAmount,
+	                         @RequestParam("productPrice") float productPrice,
+	                         @RequestParam("productDescription") String productDescription,
+	                         @RequestParam("productColor") String productColor,
 	                         @RequestParam("supplierId") int supplierId,
 	                         @RequestParam("sellerId") int sellerId,
 	                         @RequestParam("radio_product_type") boolean radio_product_type) {
 	    // Your existing code to handle product creation
-	    productService.addProduct(productName, supplierId, sellerId, radio_product_type);
+	    productService.addProduct(productName,productCategoryId, productAmount, productPrice, productDescription, productColor, supplierId, sellerId, radio_product_type);
 
 	    // Redirect or return the appropriate view
 	    return "redirect:/admin/add-product"; // Change this to your success view
 	}
+
 
 
 	@GetMapping("/add-purchase-order")

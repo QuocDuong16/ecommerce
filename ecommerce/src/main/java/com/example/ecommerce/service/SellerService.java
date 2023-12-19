@@ -70,4 +70,7 @@ public class SellerService {
     public List<Seller> getAllSellers() {
         return sellerRepository.findAll();
     }
+	public Seller findById(int sellerId) {
+		return sellerRepository.findById(sellerId).orElse(null);
+	}
 }

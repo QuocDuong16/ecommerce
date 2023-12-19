@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.ecommerce.entity.Category;
+import com.example.ecommerce.entity.Product.Product;
 import com.example.ecommerce.repository.CategoryRepository;
 
 @Service
@@ -21,5 +22,8 @@ public class CategoryService {
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
     }
+	public Category findById(int categoryId) {
+		return categoryRepository.findById(categoryId).orElse(null);
+	}
 
 }

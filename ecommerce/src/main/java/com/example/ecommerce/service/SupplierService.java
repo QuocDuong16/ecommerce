@@ -1,5 +1,6 @@
 package com.example.ecommerce.service;
 
+import com.example.ecommerce.entity.Category;
 import com.example.ecommerce.entity.Supplier;
 import com.example.ecommerce.repository.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,4 +41,7 @@ public class SupplierService {
         supplier.setAddress(supplierAddress);
         supplierRepository.save(supplier);
     }
+	public Supplier findById(int supplierId) {
+		return supplierRepository.findById(supplierId).orElse(null);
+	}
 }
