@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.ecommerce.service.ProductService;
 import com.example.ecommerce.entity.Product.Product;
-
+import java.net.URLDecoder;
 @Controller
 public class ProductController {
 
@@ -52,20 +52,39 @@ public class ProductController {
 
 	@GetMapping("/searchcolor")
 	public String doSearchProductByColor(@RequestParam(name = "productColor", required = false) String productColor,
-			Model model) {
-		List<Product> products = productService.listAll();
-		List<Product> searchResults;
+	                                      Model model) {
+	    List<Product> products = productService.listAll();
+	    List<Product> searchResults;
 
-		if (productColor != null && !productColor.isEmpty()) {
-			searchResults = productService.searchByColor(productColor);
-		} else {
-			addUniqueColorsAndProductsToModel(products, model);
-			return "shop";
-		}
+	    if (productColor != null && !productColor.isEmpty()) {
+	        try {
+	            // Giải mã màu nếu được truyền dưới dạng "%23" thay vì "#"
+	            productColor = URLDecoder.decode(productColor, "UTF-8");
+	        } catch (Exception e) {
+	            e.printStackTrace(); // Xử lý ngoại lệ nếu có lỗi khi giải mã
+	            model.addAttribute("errorMessage", "Invalid color format");
+	            addUniqueColorsAndProductsToModel(products, model);
+	            return "shop";
+	        }
 
-		addUniqueColorsAndProductsToModel(searchResults, model);
-		return "shop";
+	        // Kiểm tra nếu màu có đúng định dạng "#...."
+	        if (productColor.matches("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$")) {
+	            searchResults = productService.searchByColor(productColor);
+	        } else {
+	            // Xử lý khi màu không đúng định dạng
+	            model.addAttribute("errorMessage", "Invalid color format");
+	            addUniqueColorsAndProductsToModel(products, model);
+	            return "shop";
+	        }
+	    } else {
+	        addUniqueColorsAndProductsToModel(products, model);
+	        return "shop";
+	    }
+
+	    addUniqueColorsAndProductsToModel(searchResults, model);
+	    return "shop";
 	}
+
 
 	@GetMapping("/searchprice")
 	public String doSearchProductByPriceRange(@RequestParam(name = "minPrice", required = false) Float minPrice,

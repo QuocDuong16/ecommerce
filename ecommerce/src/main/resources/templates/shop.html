@@ -101,12 +101,13 @@
 							<!--Tim kiem bang mau -->
 							<h3 class="mb-3 h6 text-uppercase text-black d-block">Color</h3>
 							<div id="colorFilter" th:each="color : ${uniqueProductColors}" class="mb-4">
-								<a th:href="@{'/searchcolor?productColor=' + ${color}}"
-									class="d-flex color-item align-items-center">
-									<span class="color d-inline-block rounded-circle mr-2"
-										th:style="'background-color:' + ${color}"></span>
-									<span class="text-black" th:text="${color}"></span>
-								</a>
+								<!-- Thay đổi href trong file HTML -->
+<a th:href="@{'/searchcolor?productColor=' + ${color.replace('#', '%23')}}"
+   class="d-flex color-item align-items-center">
+   <span class="color d-inline-block rounded-circle mr-2"
+         th:style="'background-color:' + ${color}"></span>
+</a>
+
 							</div>
 
 						</div>
