@@ -54,13 +54,6 @@ public class HomeController {
 		return "user";
 	}
 
-	@GetMapping("/admin-page")
-	public String adminPage() {
-//		UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
-//		model.addAttribute("user", userDetails);
-		return "admin";
-	}
-
 	@PostMapping("/createUser")
 	public String createuser(@ModelAttribute Customer customer, @ModelAttribute Seller seller,
 			@RequestParam("role") String role, HttpSession session) {
@@ -97,5 +90,4 @@ public class HomeController {
 		return "restricted/register";
 
 	}
-
 }

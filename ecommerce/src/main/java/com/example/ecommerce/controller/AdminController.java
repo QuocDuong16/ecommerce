@@ -12,6 +12,7 @@ import java.util.Map;
 
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -130,8 +131,20 @@ public class AdminController {
 	}
 
 	@GetMapping("/add-purchase-order")
-	public String AddPurchaseOrder() {
+	public String AddPurchaseOrder(Model model) {
+		List<EnterpriseProduct> products = enterpriseProductService.getEnterpriseProducts();
+		List<Supplier> suppliers = supplierService.getAllSuppliers();
+	    
+	    model.addAttribute("suppliers", suppliers);
+	    model.addAttribute("products", products);
 		return "admin/add-purchase-order";
+	}
+	
+	@PostMapping("/add-purchase-order")
+	public String executeAddPurchaseOrder(@RequestBody PurchaseOrderRequest request) {
+		purchaseOrderService.add(request);
+	    
+	    return "redirect:/admin/data-orders";
 	}
 
 	@GetMapping("/add-supplier")
@@ -306,14 +319,14 @@ public class AdminController {
 	@GetMapping("/edit-purchase-order/{orderId}")
 	public String EditPurchaseOrder(@PathVariable int orderId, Model model) {
 		PurchaseOrder purchaseOrder = purchaseOrderService.getPurchaseOrderById(orderId);
-		List<Product> products = productService.listAll();
+		List<EnterpriseProduct> products = enterpriseProductService.getEnterpriseProducts();
 		List<Supplier> suppliers = supplierService.getAllSuppliers();
 
 	    if (purchaseOrder == null || purchaseOrder.getOrderDetails().isEmpty()) {
 	    	return "redirect:/admin/error";
 	    }
 	    
-	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS"); // Định dạng của bạn
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
 	    String formattedDate = sdf.format(new Date(purchaseOrder.getOrderDateCreate().getTime()));
 	    model.addAttribute("formattedDate", formattedDate);
 	    model.addAttribute("orderDetails", purchaseOrder.getOrderDetails());

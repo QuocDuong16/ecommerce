@@ -26,6 +26,10 @@ public class OrderDetailService {
 	private SalesOrderService salesOrderService;
 	@Autowired
 	private CartItemService cartItemService;
+	
+	public void save(OrderDetail orderDetail) {
+		orderDetailRepository.save(orderDetail);
+	}
 
 	@Transactional
 	public List<OrderDetail> getOrderDetailsForPayment(Customer customer) {
