@@ -6,8 +6,8 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700" />
 	<link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}" />
+	<link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Mukta:300,400,700}" />
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 	<link rel="stylesheet" th:href="@{/css/magnific-popup.css}" />
 	<link rel="stylesheet" th:href="@{/css/jquery-ui.css}" />
@@ -15,6 +15,110 @@
 	<link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}" />
 	<link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}" />
 	<link rel="stylesheet" th:href="@{/css/aos.css}" />
+	<style>
+		.loader {
+            width: 45px;
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 25px;
+        }
+
+        .ball {
+            list-style: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #fff;
+        }
+
+        .ball:nth-child(1) {
+            animation: bounce-1 2.1s ease-in-out infinite;
+        }
+
+        @keyframes bounce-1 {
+            50% {
+                transform: translateY(-18px);
+                background-color: aqua;
+            }
+        }
+
+        .ball:nth-child(2) {
+            animation: bounce-3 2.1s ease-in-out 0.3s infinite;
+        }
+
+        @keyframes bounce-2 {
+            50% {
+                transform: translateY(-18px);
+                background-color: aqua;
+            }
+        }
+
+        .ball:nth-child(3) {
+            animation: bounce-3 2.1s ease-in-out 0.6s infinite;
+        }
+
+        @keyframes bounce-3 {
+            50% {
+                transform: translateY(-18px);
+                background-color: aqua;
+            }
+        }
+		#chat-box {
+			width: 550px;
+			background-color: #fff;
+			border: 1px solid #ddd;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			overflow: hidden;
+			transition: height 0.3s;
+		}
+
+		#chat-container {
+			height: 500px;
+			overflow-y: scroll;
+			padding: 10px;
+			margin-bottom: 10px;
+		}
+
+		#message-input {
+			width: 70%;
+			padding: 8px;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			margin: 5px;
+		}
+
+		#send-button {
+			width: 20%;
+			padding: 5px;
+			border: none;
+			border-radius: 4px;
+			background-color: #007bff;
+			color: #fff;
+			cursor: pointer;
+		}
+
+		.hidden {
+			display: none;
+		}
+
+		/* Style for the "Box" button */
+		.box-button {
+			position: fixed;
+			top: 60px;
+			right: 10px;
+			z-index: 999;
+			/* Ensure it appears on top of other elements */
+		}
+
+		.box-button1 {
+			position: fixed;
+			top: 10px;
+			right: 10px;
+			z-index: 998;
+			/* Ensure it appears on top of other elements */
+		}
+	</style>
 </head>
 
 <body class="bg-light">
@@ -194,6 +298,52 @@
 	<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
 	<script th:src="@{/js/aos.js}"></script>
 	<script th:src="@{/js/main.js}"></script>
+	<script>
+		function toggleChatBox() {
+			var chatBox = document.getElementById('chat-box');
+			chatBox.classList.toggle('hidden');
+		}
+
+		let history = [];
+		function sendMessage() {
+			var loadingElement = document.getElementById("loading");
+			loadingElement.style.display = "flex";
+
+			var message = document.getElementById('message-input').value;
+			appendMessage('You: ' + message);
+
+			// Gửi request đến API để nhận phản hồi từ bot
+			fetch('http://127.0.0.1:5000/api/chat', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json;charset=UTF-8',
+				},
+				body: JSON.stringify({
+					user_question: message, history: history
+				}),
+			})
+				.then(response => response.json())
+				.then(data => {
+					loadingElement.style.display = "none";
+					var botResponse = data.response;
+					history.push(
+						{
+							user_question: message,
+							model_answer: botResponse,
+						},
+					)
+					appendMessage(botResponse);
+				});
+		}
+
+		function appendMessage(message) {
+			var chatContainer = document.getElementById('chat-container');
+			var messageElement = document.createElement('p');
+			messageElement.innerHTML = message;
+			chatContainer.appendChild(messageElement);
+			document.getElementById('message-input').value = '';
+		}
+	</script>
 
 </body>
 

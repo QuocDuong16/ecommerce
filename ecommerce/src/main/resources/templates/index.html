@@ -9,6 +9,8 @@
 
 <body>
 	<section>
+
+
 		<div class="site-blocks-cover" th:style="'background-image: url(' + @{/images/hero_1.jpg} + ');'"
 			data-aos="fade">
 			<div class="container">
@@ -26,6 +28,7 @@
 				</div>
 			</div>
 		</div>
+
 
 		<div class="site-section site-section-sm site-blocks-1">
 			<div class="container">
@@ -208,8 +211,25 @@
 
 
 
-	</section>
+				<div id="chat-box" class="hidden box-button">
+					<div id="chat-container"></div>
+					<div style="display: flex;">
+						<input type="text" class="form-control" id="message-input" placeholder="Type your message..." name="user_question">
+						<div class="loader" id="loading" style="display: none;">
+							<li class="ball"></li>
+							<li class="ball"></li>
+							<li class="ball"></li>
+						</div>
+						<button class="btn btn-primary" id="send-button" onclick="sendMessage()"><i
+								class="icon-arrow-right text-dark"></i></button>
+					</div>
+					</div>
+					<!-- Use a unique ID for the "Box" button -->
+					<button class="btn btn-primary box-button1" onclick="toggleChatBox()">Chatbot<i class="icon-heart"></i>
+						</button>
 
+
+	</section>
 
 
 </body>

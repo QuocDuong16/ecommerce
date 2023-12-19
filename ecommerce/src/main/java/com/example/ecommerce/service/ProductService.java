@@ -1,5 +1,8 @@
 package com.example.ecommerce.service;
 
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -8,6 +11,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.ecommerce.data.OrderInfo;
 import com.example.ecommerce.entity.Category;
@@ -39,7 +46,6 @@ public class ProductService {
 
 	public void addProduct(String productName, int productCategoryId, int productAmount, float productPrice,
 			String productDescription, String productColor, int supplierId, int sellerId, boolean radio_product_type) {
-		System.out.println("3");
 		Category category = categoryService.findById(productCategoryId);
 		if (!radio_product_type) {
 			EnterpriseProduct enterpriseProduct = new EnterpriseProduct();
@@ -51,7 +57,6 @@ public class ProductService {
 			enterpriseProduct.setProductDescription(productDescription);
 			enterpriseProduct.setColor(productColor);
 			enterpriseProduct.setCategory(category);
-			System.out.println("1");
 			enterpriseProductRepository.save(enterpriseProduct);
 		} else {
 			IndividualProduct individualProduct = new IndividualProduct();
@@ -63,7 +68,6 @@ public class ProductService {
 			individualProduct.setProductDescription(productDescription);
 			individualProduct.setColor(productColor);
 			individualProduct.setCategory(category);
-			System.out.println("2");
 			individualProductRepository.save(individualProduct);
 		}
 	}
