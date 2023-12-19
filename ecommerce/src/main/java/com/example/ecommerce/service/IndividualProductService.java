@@ -16,4 +16,8 @@ public class IndividualProductService {
 	public List<IndividualProduct> getIndividualProducts() {
 		return individualProductRepository.findAll();
 	}
+	
+	public void update(IndividualProduct individualProduct) {
+		individualProductRepository.save(individualProduct);
+	}
 }

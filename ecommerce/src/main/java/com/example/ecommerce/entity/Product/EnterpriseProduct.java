@@ -35,7 +35,7 @@ public class EnterpriseProduct extends Product {
 		this.supplier = supplier;
 	}
 
-	public EnterpriseProduct(int productId, String productName, Blob productImage, float productPrice,
+	public EnterpriseProduct(int productId, String productName, byte[] productImage, float productPrice,
 			String productDescription, Category category, int productAmount, String color,
 			List<OrderDetail> orderDetails, List<CartItem> cartItems, Supplier supplier) {
 		super(productId, productName, productImage, productPrice, productDescription, category, productAmount, color,
@@ -49,5 +49,10 @@ public class EnterpriseProduct extends Product {
 
 	public void setSupplier(Supplier supplier) {
 		this.supplier = supplier;
+	}
+
+	@Override
+	public String getType() {
+		return "enterprise";
 	}
 }

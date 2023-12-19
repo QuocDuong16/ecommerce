@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.ecommerce.data.OrderInfo;
 import com.example.ecommerce.entity.OrderDetail;
+import com.example.ecommerce.entity.Account.Customer;
 import com.example.ecommerce.entity.Account.Seller;
 import com.example.ecommerce.entity.Product.IndividualProduct;
 import com.example.ecommerce.repository.SellerRepository;
@@ -23,6 +24,10 @@ public class SellerService {
 	
 	public List<Seller> getSellers() {
 		return sellerRepository.findAll();
+	}
+	
+	public void update(Seller seller) {
+		sellerRepository.save(seller);
 	}
 
 	public List<OrderInfo> findTopFiveSellers() {

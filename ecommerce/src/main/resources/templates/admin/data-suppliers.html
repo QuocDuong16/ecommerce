@@ -279,10 +279,10 @@
 														<td th:text="${supplier.address}"></td>
 														<td>
 															<div class="custom-icon-group">
-																<a th:href="@{'/delete-supplier/' + ${supplier.supplierId}}" class="btn btn-light btn-icon">
+																<a th:href="@{'/admin/delete-supplier/' + ${supplier.supplierId}}" class="btn btn-light btn-icon">
 																	<i class="bi bi-trash"></i>
 																</a>
-																<a th:href="@{'/edit-supplier/' + ${supplier.supplierId}}" class="btn btn-light btn-icon">
+																<a th:href="@{'/admin/edit-supplier/' + ${supplier.supplierId}}" class="btn btn-light btn-icon">
 																	<i class="bi bi-pencil"></i>
 																</a>
 															</div>

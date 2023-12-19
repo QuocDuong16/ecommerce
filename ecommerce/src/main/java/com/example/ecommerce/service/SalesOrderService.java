@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.ecommerce.data.AnnualInfo;
 import com.example.ecommerce.entity.OrderDetail;
 import com.example.ecommerce.entity.Account.Customer;
+import com.example.ecommerce.entity.Order.PurchaseOrder;
 import com.example.ecommerce.entity.Order.SalesOrder;
 import com.example.ecommerce.repository.SalesOrderRepository;
 
@@ -118,5 +119,13 @@ public class SalesOrderService {
 	
 	public List<SalesOrder> getSalesOrders() {
 		return salesOrderRepository.findAll();
+	}
+	
+	public SalesOrder getSalesOrderById(int id) {
+		return salesOrderRepository.findById(id).orElse(null);
+	}
+	
+	public void update(SalesOrder salesOrder) {
+		salesOrderRepository.save(salesOrder);
 	}
 }

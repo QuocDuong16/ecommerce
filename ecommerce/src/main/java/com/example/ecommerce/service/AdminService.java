@@ -17,4 +17,8 @@ public class AdminService {
 	public List<Admin> getAdmins() {
 		return adminRepository.findAll();
 	}
+	
+	public void update(Admin admin) {
+		adminRepository.save(admin);
+	}
 }

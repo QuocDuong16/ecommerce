@@ -269,6 +269,7 @@
 														<th>Name</th>
 														<th>Amount</th>
 														<th>Image</th>
+														<th>Color</th>
 														<th>Price</th>
 														<th>Description</th>
 														<th>Category</th>
@@ -281,16 +282,17 @@
 														<td th:text="${product.productName}"></td>
 														<td th:text="${product.productAmount}"></td>
 														<td th:text="${product.productImage}"></td>
+														<td th:text="${product.color}" th:style="background-color: ${product.color}"></td>
 														<td th:text="${product.productPrice}"></td>
 														<td th:text="${product.productDescription}"></td>
 														<td th:text="${product.category.categoryName}"></td>
 														<td th:text="${product.seller.fullName}"></td>
 														<td>
 															<div class="custom-icon-group">
-																<a th:href="@{'/delete-product/' + ${product.productId}}" class="btn btn-light btn-icon">
+																<a th:href="@{'/admin/delete-product/' + ${product.productId}}" class="btn btn-light btn-icon">
 																	<i class="bi bi-trash"></i>
 																</a>
-																<a th:href="@{'/edit-product/' + ${product.productId}}" class="btn btn-light btn-icon">
+																<a th:href="@{'/admin/edit-product/' + ${product.productId}}" class="btn btn-light btn-icon">
 																	<i class="bi bi-pencil"></i>
 																</a>
 															</div>
@@ -320,6 +322,7 @@
 														<th>Name</th>
 														<th>Amount</th>
 														<th>Image</th>
+														<th>Color</th>
 														<th>Price</th>
 														<th>Description</th>
 														<th>Category</th>
@@ -332,16 +335,17 @@
 														<td th:text="${product.productName}"></td>
 														<td th:text="${product.productAmount}"></td>
 														<td th:text="${product.productImage}"></td>
+														<td th:text="${product.color}" th:style="background-color: ${product.color}"></td>
 														<td th:text="${product.productPrice}"></td>
 														<td th:text="${product.productDescription}"></td>
 														<td th:text="${product.category.categoryName}"></td>
 														<td th:text="${product.supplier.supplierName}"></td>
 														<td>
 															<div class="custom-icon-group">
-																<a th:href="@{'/delete-product/' + ${product.productId}}" class="btn btn-light btn-icon">
+																<a th:href="@{'/admin/delete-product/' + ${product.productId}}" class="btn btn-light btn-icon">
 																	<i class="bi bi-trash"></i>
 																</a>
-																<a th:href="@{'/edit-product/' + ${product.productId}}" class="btn btn-light btn-icon">
+																<a th:href="@{'/admin/edit-product/' + ${product.productId}}" class="btn btn-light btn-icon">
 																	<i class="bi bi-pencil"></i>
 																</a>
 															</div>

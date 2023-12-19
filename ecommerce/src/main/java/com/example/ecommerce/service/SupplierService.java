@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SupplierService {
@@ -17,10 +16,10 @@ public class SupplierService {
     public Supplier createSupplier(Supplier supplier) {
         return supplierRepository.save(supplier);
     }
-
-    public Supplier updateSupplier(Supplier supplier) {
-        return supplierRepository.save(supplier);
-    }
+    
+	public void update(Supplier supplier) {
+		supplierRepository.save(supplier);
+	}
 
     public void deleteSupplier(int supplierId) {
         supplierRepository.deleteById(supplierId);
@@ -29,8 +28,8 @@ public class SupplierService {
     public List<Supplier> getAllSuppliers() {
         return supplierRepository.findAll();
     }
-
-    public Optional<Supplier> getSupplierById(int supplierId) {
-        return supplierRepository.findById(supplierId);
-    }
+    
+	public Supplier getSupplierById(int id) {
+		return supplierRepository.findById(id).orElse(null);
+	}
 }

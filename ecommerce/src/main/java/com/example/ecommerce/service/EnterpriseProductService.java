@@ -16,4 +16,8 @@ public class EnterpriseProductService {
 	public List<EnterpriseProduct> getEnterpriseProducts() {
 		return enterpriseProductRepository.findAll();
 	}
+	
+	public void update(EnterpriseProduct enterpriseProduct) {
+		enterpriseProductRepository.save(enterpriseProduct);
+	}
 }

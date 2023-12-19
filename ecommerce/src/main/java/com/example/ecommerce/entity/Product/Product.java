@@ -36,7 +36,7 @@ public abstract class Product {
 	private int productId;
 	private String productName;
 	@Lob
-	private Blob productImage;
+	private byte[] productImage;
 	private float productPrice;
 	private String productDescription;
 	
@@ -56,7 +56,7 @@ public abstract class Product {
 		super();
 	}
 
-	public Product(int productId, String productName, Blob productImage, float productPrice,
+	public Product(int productId, String productName, byte[] productImage, float productPrice,
 			String productDescription, Category category, int productAmount, String color,
 			List<OrderDetail> orderDetails, List<CartItem> cartItems) {
 		super();
@@ -88,11 +88,11 @@ public abstract class Product {
 		this.productName = productName;
 	}
 
-	public Blob getProductImage() {
+	public byte[] getProductImage() {
 		return productImage;
 	}
 
-	public void setProductImage(Blob productImage) {
+	public void setProductImage(byte[] productImage) {
 		this.productImage = productImage;
 	}
 
@@ -151,4 +151,6 @@ public abstract class Product {
 	public void setCartItems(List<CartItem> cartItems) {
 		this.cartItems = cartItems;
 	}
+	
+	public abstract String getType();
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.ecommerce.data.OrderInfo;
+import com.example.ecommerce.entity.Category;
 import com.example.ecommerce.entity.OrderDetail;
 import com.example.ecommerce.entity.Product.Product;
 import com.example.ecommerce.repository.ProductRepository;
@@ -19,6 +20,10 @@ public class ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
+	
+	public Product getProductById(int id) {
+		return productRepository.findById(id).orElse(null);
+	}
 
 	public List<OrderInfo> findTopTenProducts() {
 		List<OrderInfo> orderInfos = new ArrayList<OrderInfo>();

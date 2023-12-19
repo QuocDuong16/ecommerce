@@ -63,5 +63,15 @@ public class AccountService implements AccountServiceInterface {
 			throw new UserNotFoundException("User not found for the given reset token");
 		}
 	}
+	
+	public Account getAccountById(int id) {
+		return accountRepository.findById(id).orElse(null);
+	}
+	
+    public void updateAccount(Account updatedAccount) {
+        if (accountRepository.existsById(updatedAccount.getAccountId())) {
+            accountRepository.save(updatedAccount);
+        }
+    }
 
 }

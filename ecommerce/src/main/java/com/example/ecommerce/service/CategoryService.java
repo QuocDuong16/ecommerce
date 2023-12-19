@@ -16,4 +16,12 @@ public class CategoryService {
 	public List<Category> getCategories() {
 		return categoryRepository.findAll();
 	}
+	
+	public Category getCategoryById(int id) {
+		return categoryRepository.findById(id).orElse(null);
+	}
+	
+	public void update(Category category) {
+		categoryRepository.save(category);
+	}
 }

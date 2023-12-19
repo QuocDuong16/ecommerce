@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.ecommerce.entity.Category;
 import com.example.ecommerce.entity.Supplier;
+import com.example.ecommerce.entity.Account.Account;
 import com.example.ecommerce.entity.Account.Admin;
 import com.example.ecommerce.entity.Account.Customer;
 import com.example.ecommerce.entity.Account.Seller;
@@ -22,12 +25,14 @@ import com.example.ecommerce.entity.Order.PurchaseOrder;
 import com.example.ecommerce.entity.Order.SalesOrder;
 import com.example.ecommerce.entity.Product.EnterpriseProduct;
 import com.example.ecommerce.entity.Product.IndividualProduct;
+import com.example.ecommerce.entity.Product.Product;
 import com.example.ecommerce.service.AccountService;
 import com.example.ecommerce.service.AdminService;
 import com.example.ecommerce.service.CategoryService;
 import com.example.ecommerce.service.CustomerService;
 import com.example.ecommerce.service.EnterpriseProductService;
 import com.example.ecommerce.service.IndividualProductService;
+import com.example.ecommerce.service.ProductService;
 import com.example.ecommerce.service.PurchaseOrderService;
 import com.example.ecommerce.service.SalesOrderService;
 import com.example.ecommerce.service.SellerService;
@@ -40,6 +45,9 @@ public class AdminController {
 	
 	@Autowired
 	private StatisticService statisticService;
+	
+	@Autowired
+	private AccountService accountService;
 	
 	@Autowired
 	private AdminService adminService;
@@ -67,6 +75,9 @@ public class AdminController {
 	
 	@Autowired
 	private SupplierService supplierService;
+	
+	@Autowired
+	private ProductService productService;
 
 	@GetMapping("/")
 	public String home(Model model) {
@@ -159,33 +170,103 @@ public class AdminController {
 		return "admin/data-suppliers";
 	}
 
-	@GetMapping("/edit-account")
-	public String EditAccount(Model model) {
-		return "admin/edit-account";
+	@GetMapping("/edit-account/{accountId}")
+	public String EditAccount(@PathVariable int accountId, Model model) {
+	    Account account = accountService.getAccountById(accountId);
+	    if (account == null) {
+	        return "redirect:/admin/error";
+	    }
+	    model.addAttribute("account", account);
+	    model.addAttribute("roleLink", account.getRole());
+
+	    return "admin/edit-account";
+	}
+	
+	@PostMapping("/edit-admin")
+	public String executeEditAdmin(@ModelAttribute Admin account) {
+	    adminService.update(account);
+
+	    return "redirect:/admin/data-accounts";
+	}
+	
+	@PostMapping("/edit-seller")
+	public String executeEditSeller(@ModelAttribute Seller account) {
+	    sellerService.update(account);
+
+	    return "redirect:/admin/data-accounts";
+	}
+	
+	@PostMapping("/edit-customer")
+	public String executeEditCustomer(@ModelAttribute Customer account) {
+	    customerService.update(account);
+
+	    return "redirect:/admin/data-accounts";
 	}
 
-	@GetMapping("/edit-category")
-	public String EditCategory() {
+	@GetMapping("/edit-category/{categoryId}")
+	public String EditCategory(@PathVariable int categoryId, Model model) {
+		Category category = categoryService.getCategoryById(categoryId);
+	    if (category == null) {
+	        return "redirect:/admin/error";
+	    }
+	    model.addAttribute("category", category);
 		return "admin/edit-category";
 	}
+	
+	@PostMapping("/edit-category")
+	public String executeEditCategory(@ModelAttribute Category category) {
+	    categoryService.update(category);
 
-	@GetMapping("/edit-product")
-	public String EditProduct() {
-		return "admin/edit-product";
+	    return "redirect:/admin/data-categories";
 	}
 
-	@GetMapping("/edit-purchase-order")
-	public String EditPurchaseOrder() {
+	@GetMapping("/edit-product/{productId}")
+	public String EditProduct(@PathVariable int productId, Model model) {
+	    Product product = productService.getProductById(productId);
+
+	    if (product == null) {
+	        // Xử lý khi không tìm thấy sản phẩm
+	        return "redirect:/admin/error";
+	    }
+		List<Category> categories = categoryService.getCategories();
+		List<Supplier> suppliers = supplierService.getAllSuppliers();
+		List<Seller> sellers = sellerService.getSellers();
+		
+		model.addAttribute("product", product);
+		model.addAttribute("type", product.getType());
+		model.addAttribute("categories", categories);
+		model.addAttribute("suppliers", suppliers);
+		model.addAttribute("sellers", sellers);
+		return "admin/edit-product";
+	}
+	
+	@PostMapping("/edit-individual")
+	public String executeEditIndividualProduct(@ModelAttribute IndividualProduct product) {
+	    individualProductService.update(product);
+
+	    return "redirect:/admin/data-products";
+	}
+	
+	@PostMapping("/edit-enterprise")
+	public String executeEditEnterpriseProduct(@ModelAttribute EnterpriseProduct product) {
+	    enterpriseProductService.update(product);
+
+	    return "redirect:/admin/data-products";
+	}
+
+	@GetMapping("/edit-purchase-order/{purchaseOrderId}")
+	public String EditPurchaseOrder(@PathVariable int purchaseOrderId, Model model) {
+		
 		return "admin/edit-purchase-order";
 	}
 
-	@GetMapping("/edit-sale-order")
-	public String EditSaleOrder() {
+	@GetMapping("/edit-sale-order/{saleOrderId}")
+	public String EditSaleOrder(@PathVariable int saleOrderId, Model model) {
 		return "admin/edit-sale-order";
 	}
 
-	@GetMapping("/edit-supplier")
-	public String EditSupplier() {
+	@GetMapping("/edit-supplier/{supplierId}")
+	public String EditSupplier(@PathVariable int supplierId, Model model) {
 		return "admin/edit-supplier";
 	}
 
@@ -213,4 +294,9 @@ public class AdminController {
 	public String SignUp() {
 		return "admin/signup";
 	}
+	
+    @GetMapping("/**")
+    public String handleInvalidUrl() {
+        return "redirect:/admin/error";
+    }
 }

@@ -245,82 +245,78 @@
 						<!-- Row start -->
 						<div class="row">
 							<div class="col-sm-12 col-12">
-								<div class="card">
-									<div class="card-header">
-										<div class="card-title">Account Information</div>
-									</div>
-									<div class="card-body">
-
-										<div class="row">
-											<div class="col-sm-6 col-12">
-												<div class="card-border">
-													<div class="card-border-title">General Information</div>
-													<div class="card-border-body">
-
-														<div class="row">
-															<div class="col-sm-6 col-12">
-																<div class="mb-3">
-																	<label class="form-label">Name <span class="text-red">*</span></label>
-																	<input type="text" class="form-control" placeholder="Enter Full Name" required>
+								<form th:action="@{/admin/edit-__${roleLink}__}" th:object="${account}" method="post">
+									<div class="card">
+										<div class="card-header">
+											<div class="card-title">Account Information</div>
+										</div>
+										<div class="card-body">
+											<div class="row">
+												<div class="col-sm-6 col-12">
+													<div class="card-border">
+														<div class="card-border-title">General Information</div>
+														<div class="card-border-body">
+															<input type="hidden" th:field="*{accountId}">
+															<input type="hidden" th:field="*{password}">
+															<div class="row">
+																<div class="col-sm-6 col-12">
+																	<div class="mb-3">
+																		<label class="form-label">Name <span class="text-red">*</span></label>
+																		<input type="text" class="form-control" placeholder="Enter Full Name" th:field="*{fullName}" required>
+																	</div>
+																</div>
+																<div class="col-sm-6 col-12">
+																	<div class="mb-3">
+																		<label class="form-label">Email <span class="text-red">*</span></label>
+																		<input type="email" inputmode="email" class="form-control" placeholder="Enter Email" th:field="*{email}" required>
+																	</div>
+																</div>
+																<div class="col-sm-6 col-12">
+																	<div class="mb-3">
+																		<label class="form-label">Address <span class="text-red">*</span></label>
+																		<input type="text" class="form-control" placeholder="Enter Address" th:field="*{address}" required>
+																	</div>
+																</div>
+																<div class="col-sm-6 col-12">
+																	<div class="mb-3">
+																		<label class="form-label">Phone <span class="text-red">*</span></label>
+																		<input type="tel" inputmode="tel" class="form-control" placeholder="Enter Phone" th:field="*{phone}" required>
+																	</div>
 																</div>
 															</div>
-															<div class="col-sm-6 col-12">
-																<div class="mb-3">
-																	<label class="form-label">Email <span class="text-red">*</span></label>
-																	<input type="email" inputmode="email" class="form-control" placeholder="Enter Email" required>
-																</div>
-															</div>
-                                                            <div class="col-sm-6 col-12">
-																<div class="mb-3">
-																	<label class="form-label">Address <span class="text-red">*</span></label>
-																	<input type="text" class="form-control" placeholder="Enter Address" required>
-																</div>
-															</div>
-                                                            <div class="col-sm-6 col-12">
-																<div class="mb-3">
-																	<label class="form-label">Phone <span class="text-red">*</span></label>
-																	<input type="tel" inputmode="tel" class="form-control" placeholder="Enter Phone" required>
-																</div>
-															</div>
+	
 														</div>
-
 													</div>
 												</div>
-											</div>
-											<div class="col-sm-6 col-12">
-												<div class="card-border">
-													<div class="card-border-title">Other Information</div>
-													<div class="card-border-body">
-
-														<div class="row">
-															<div class="col-sm-12 col-12">
-																<div class="mb-3 d-flex justify-content-center align-items-center">
-																	<label class="form-label flex-grow-1">Account Type <span class="text-red">*</span></label>
-																	<div class="btn-group flex-end" role="group" aria-label="Select Account Type">
-																		<input type="radio" class="btn-check" name="radio_product_type" id="admin" checked="">
-																		<label class="btn btn-outline-primary" for="admin">Admin</label>
-							
-																		<input type="radio" class="btn-check" name="radio_product_type" id="seller">
-																		<label class="btn btn-outline-primary" for="seller">Seller</label>
-
-                                                                        <input type="radio" class="btn-check" name="radio_product_type" id="customer">
-																		<label class="btn btn-outline-primary" for="customer">Customer</label>
+												<div class="col-sm-6 col-12">
+													<div class="card-border">
+														<div class="card-border-title">Other Information</div>
+														<div class="card-border-body">
+	
+															<div class="row">
+																<div class="col-sm-12 col-12">
+																	<div class="mb-3 d-flex justify-content-center align-items-center">
+																		<label class="form-label flex-grow-1">Account Role <span class="text-red">*</span></label>
+																		<select class="form-select" th:field="*{role}" required disabled>
+																			<option value="admin">Admin</option>
+																			<option value="seller">Seller</option>
+																			<option value="customer">Customer</option>
+																		</select>
 																	</div>
 																</div>
 															</div>
 														</div>
 													</div>
 												</div>
-											</div>
-											<div class="col-sm-12 col-12">
-												<div class="custom-btn-group flex-end">
-													<a href="products.html" class="btn btn-success">Save Account</a>
+												<div class="col-sm-12 col-12">
+													<div class="custom-btn-group flex-end">
+														<button type="submit" class="btn btn-success">Save Account</button>
+													</div>
 												</div>
 											</div>
 										</div>
-
 									</div>
-								</div>
+								</form>
 							</div>
 						</div>
 						<!-- Row end -->

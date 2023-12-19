@@ -16,4 +16,12 @@ public class PurchaseOrderService {
 	public List<PurchaseOrder> getPurchaseOrders() {
 		return purchaseOrderRepository.findAll();
 	}
+	
+	public PurchaseOrder getPurchaseOrderById(int id) {
+		return purchaseOrderRepository.findById(id).orElse(null);
+	}
+	
+	public void update(PurchaseOrder purchaseOrder) {
+		purchaseOrderRepository.save(purchaseOrder);
+	}
 }

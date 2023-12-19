@@ -35,7 +35,7 @@ public class IndividualProduct extends Product {
 		this.seller = seller;
 	}
 
-	public IndividualProduct(int productId, String productName, Blob productImage, float productPrice,
+	public IndividualProduct(int productId, String productName, byte[] productImage, float productPrice,
 			String productDescription, Category category, int productAmount, String color,
 			List<OrderDetail> orderDetails, List<CartItem> cartItems, Seller seller) {
 		super(productId, productName, productImage, productPrice, productDescription, category, productAmount, color,
@@ -49,5 +49,10 @@ public class IndividualProduct extends Product {
 
 	public void setSeller(Seller seller) {
 		this.seller = seller;
+	}
+
+	@Override
+	public String getType() {
+		return "individual";
 	}
 }
