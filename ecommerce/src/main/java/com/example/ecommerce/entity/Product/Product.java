@@ -1,7 +1,11 @@
 package com.example.ecommerce.entity.Product;
 
 import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.Base64;
 import java.util.List;
+
+import org.hibernate.Hibernate;
 
 import com.example.ecommerce.entity.CartItem;
 import com.example.ecommerce.entity.Category;
@@ -36,7 +40,7 @@ public abstract class Product {
 	private int productId;
 	private String productName;
 	@Lob
-	private byte[] productImage;
+	private Blob productImage;
 	private float productPrice;
 	private String productDescription;
 	
@@ -56,7 +60,7 @@ public abstract class Product {
 		super();
 	}
 
-	public Product(int productId, String productName, byte[] productImage, float productPrice,
+	public Product(int productId, String productName, Blob productImage, float productPrice,
 			String productDescription, Category category, int productAmount, String color,
 			List<OrderDetail> orderDetails, List<CartItem> cartItems) {
 		super();
@@ -88,11 +92,11 @@ public abstract class Product {
 		this.productName = productName;
 	}
 
-	public byte[] getProductImage() {
+	public Blob getProductImage() {
 		return productImage;
 	}
 
-	public void setProductImage(byte[] productImage) {
+	public void setProductImage(Blob productImage) {
 		this.productImage = productImage;
 	}
 
@@ -153,4 +157,18 @@ public abstract class Product {
 	}
 	
 	public abstract String getType();
+	
+    public String getBase64Image() {
+        String base64Image = "";
+        if (productImage != null) {
+            try {
+                Blob blob = Hibernate.unproxy(productImage, Blob.class);
+                byte[] bytes = blob.getBytes(1, (int) blob.length());
+                base64Image = Base64.getEncoder().encodeToString(bytes);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return base64Image;
+    }
 }

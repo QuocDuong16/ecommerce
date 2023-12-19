@@ -1,9 +1,14 @@
 package com.example.ecommerce.controller;
 
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.ecommerce.data.ImageUtils;
 import com.example.ecommerce.entity.Category;
 import com.example.ecommerce.entity.Supplier;
 import com.example.ecommerce.entity.Account.Account;
@@ -228,6 +235,18 @@ public class AdminController {
 	        // Xử lý khi không tìm thấy sản phẩm
 	        return "redirect:/admin/error";
 	    }
+	    
+        String base64Image = "";
+        if (product.getProductImage() != null) {
+            try {
+                Blob blob = Hibernate.unproxy(product.getProductImage(), Blob.class);
+                byte[] bytes = blob.getBytes(1, (int) blob.length());
+                base64Image = Base64.getEncoder().encodeToString(bytes);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        
 		List<Category> categories = categoryService.getCategories();
 		List<Supplier> suppliers = supplierService.getAllSuppliers();
 		List<Seller> sellers = sellerService.getSellers();
@@ -237,20 +256,40 @@ public class AdminController {
 		model.addAttribute("categories", categories);
 		model.addAttribute("suppliers", suppliers);
 		model.addAttribute("sellers", sellers);
+		model.addAttribute("base64Image", base64Image);
+		
 		return "admin/edit-product";
 	}
 	
 	@PostMapping("/edit-individual")
-	public String executeEditIndividualProduct(@ModelAttribute IndividualProduct product) {
-	    individualProductService.update(product);
-
+	public String executeEditIndividualProduct(@ModelAttribute IndividualProduct product,
+			@RequestParam("image") MultipartFile image) {
+		try {
+			byte[] resizedImageBytes = ImageUtils.resizeImage(image, 250, 250);
+			Blob imageBlob = ImageUtils.convertToBlob(resizedImageBytes);
+			product.setProductImage(imageBlob);
+			individualProductService.update(product);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	    return "redirect:/admin/data-products";
 	}
 	
 	@PostMapping("/edit-enterprise")
-	public String executeEditEnterpriseProduct(@ModelAttribute EnterpriseProduct product) {
-	    enterpriseProductService.update(product);
-
+	public String executeEditEnterpriseProduct(@ModelAttribute EnterpriseProduct product,
+			@RequestParam("image") MultipartFile image) {
+		try {
+			byte[] resizedImageBytes = ImageUtils.resizeImage(image, 250, 250);
+			Blob imageBlob = ImageUtils.convertToBlob(resizedImageBytes);
+			product.setProductImage(imageBlob);
+			enterpriseProductService.update(product);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	    return "redirect:/admin/data-products";
 	}
 
