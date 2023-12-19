@@ -39,7 +39,7 @@
 								<div class="block-4 text-center border">
 									<figure class="block-4-image">
 										<a th:href="@{'/shop-single/' + ${product.productId}}">
-											<img th:src="@{'/images/' + ${product.productImage}}"
+											<img th:src="'data:image/png;base64,' + ${product.getBase64Image()}"
 												alt="Image placeholder" class="img-fluid">
 										</a>
 									</figure>
