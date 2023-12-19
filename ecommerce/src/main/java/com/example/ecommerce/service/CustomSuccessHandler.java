@@ -22,7 +22,14 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
 		if (roles.isPresent()) {
 			String role = roles.get();
-			setRoleCookie(response, role);
+			// Set Role Cookie
+			setCookie(response, "userRole", role);
+
+			// Set UserID Cookie (Assuming you have a method to retrieve user ID)
+			int userId = getUserId(authentication);
+			if (userId != -1) {
+				setCookie(response, "userId", String.valueOf(userId));
+			}
 
 			switch (role) {
 			case "admin":
@@ -42,9 +49,20 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 		}
 	}
 
-	private void setRoleCookie(HttpServletResponse response, String role) {
-		Cookie cookie = new Cookie("userRole", role);
+	private void setCookie(HttpServletResponse response, String name, String value) {
+		Cookie cookie = new Cookie(name, value);
 		cookie.setPath("/");
 		response.addCookie(cookie);
+	}
+
+	private int getUserId(Authentication authentication) {
+		// Implement your logic to retrieve the user ID from the authentication object
+		// For example, if your UserDetail class has a method like getUserId(), you can
+		// call it.
+		if (authentication.getPrincipal() instanceof CustomUserDetail) {
+			CustomUserDetail userDetails = (CustomUserDetail) authentication.getPrincipal();
+			return userDetails.getUserId();
+		}
+		return -1; // Return a default value indicating that the user ID is not found
 	}
 }
