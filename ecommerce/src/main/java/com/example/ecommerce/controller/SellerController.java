@@ -96,4 +96,13 @@ public class SellerController {
 
 		return "shop";
 	}
+	@GetMapping("/contact")
+	public String contact() {
+		return "contact";
+	}
+
+	@GetMapping("/about")
+	public String about() {
+		return "about";
+	}
 }
