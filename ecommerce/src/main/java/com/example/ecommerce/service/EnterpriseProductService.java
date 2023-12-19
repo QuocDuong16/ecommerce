@@ -20,4 +20,8 @@ public class EnterpriseProductService {
 	public void update(EnterpriseProduct enterpriseProduct) {
 		enterpriseProductRepository.save(enterpriseProduct);
 	}
+
+	public EnterpriseProduct getEnterpriseProductById(int id) {
+		return enterpriseProductRepository.findById(id).orElse(null);
+	}
 }
