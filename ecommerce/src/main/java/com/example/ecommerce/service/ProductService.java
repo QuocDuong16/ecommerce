@@ -10,7 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.ecommerce.data.OrderInfo;
+import com.example.ecommerce.entity.Category;
 import com.example.ecommerce.entity.OrderDetail;
+import com.example.ecommerce.entity.Supplier;
+import com.example.ecommerce.entity.Account.Seller;
+import com.example.ecommerce.entity.Product.EnterpriseProduct;
+import com.example.ecommerce.entity.Product.IndividualProduct;
 import com.example.ecommerce.entity.Product.Product;
 import com.example.ecommerce.repository.ProductRepository;
 
@@ -19,6 +24,60 @@ public class ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
+
+	public void addProduct(String productName, int productCategoryId, int productAmount, float productPrice,
+			String productDescription, String productColor, int supplierId, int sellerId, boolean radio_product_type) {
+
+		Product product;
+		if (radio_product_type) {
+			EnterpriseProduct enterpriseProduct = new EnterpriseProduct();
+			Supplier supplier = new Supplier();
+			supplier.setSupplierId(supplierId);
+			enterpriseProduct.setSupplier(supplier);
+			product = enterpriseProduct;
+		} else {
+			IndividualProduct individualProduct = new IndividualProduct();
+			Seller seller = new Seller();
+			seller.setAccountId(sellerId);
+			individualProduct.setSeller(seller);
+			product = individualProduct;
+		}
+
+// Common properties for both types
+		product.setProductName(productName);
+		product.setProductAmount(productAmount);
+		product.setProductPrice(productPrice);
+		product.setProductDescription(productDescription);
+		product.setColor(productColor);
+
+		Category category = new Category();
+		category.setCategoryId(productCategoryId);
+		product.setCategory(category);
+
+		productRepository.save(product);
+	}
+	public void addProduct(String productName, int supplierId, int sellerId, boolean radio_product_type) {
+
+		Product product;
+		if (radio_product_type) {
+			EnterpriseProduct enterpriseProduct = new EnterpriseProduct();
+			Supplier supplier = new Supplier();
+			supplier.setSupplierId(supplierId);
+			enterpriseProduct.setSupplier(supplier);
+			product = enterpriseProduct;
+		} else {
+			IndividualProduct individualProduct = new IndividualProduct();
+			Seller seller = new Seller();
+			seller.setAccountId(sellerId);
+			individualProduct.setSeller(seller);
+			product = individualProduct;
+		}
+
+// Common properties for both types
+		product.setProductName(productName);
+
+		productRepository.save(product);
+	}
 
 	public List<OrderInfo> findTopTenProducts() {
 		List<OrderInfo> orderInfos = new ArrayList<OrderInfo>();
@@ -72,7 +131,8 @@ public class ProductService {
 	}
 
 	public List<Product> searchByName(String name) {
-		// Sử dụng phương thức findBy<FieldName>ContainingIgnoreCase để thực hiện tìm kiếm
+		// Sử dụng phương thức findBy<FieldName>ContainingIgnoreCase để thực hiện tìm
+		// kiếm
 		return productRepository.findByProductNameContainingIgnoreCase(name);
 	}
 

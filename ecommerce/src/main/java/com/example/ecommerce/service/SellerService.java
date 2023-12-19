@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.ecommerce.data.OrderInfo;
 import com.example.ecommerce.entity.OrderDetail;
+import com.example.ecommerce.entity.Supplier;
 import com.example.ecommerce.entity.Account.Seller;
 import com.example.ecommerce.entity.Product.IndividualProduct;
 import com.example.ecommerce.repository.SellerRepository;
@@ -66,4 +67,7 @@ public class SellerService {
 		Collections.sort(orderInfos, (p1, p2) -> Integer.compare(p2.quantity(), p1.quantity()));
 		return orderInfos.size() < 5 ? orderInfos : orderInfos.subList(0, 5);
 	}
+    public List<Seller> getAllSellers() {
+        return sellerRepository.findAll();
+    }
 }

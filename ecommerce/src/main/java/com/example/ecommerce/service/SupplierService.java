@@ -33,4 +33,11 @@ public class SupplierService {
     public Optional<Supplier> getSupplierById(int supplierId) {
         return supplierRepository.findById(supplierId);
     }
+    public void addToSupplier(String supplierName, String supplierEmail, String supplierAddress) {
+        Supplier supplier = new Supplier();
+        supplier.setSupplierName(supplierName);
+        supplier.setEmail(supplierEmail);
+        supplier.setAddress(supplierAddress);
+        supplierRepository.save(supplier);
+    }
 }
