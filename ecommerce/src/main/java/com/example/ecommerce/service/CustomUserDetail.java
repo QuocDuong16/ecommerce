@@ -87,6 +87,21 @@ public class CustomUserDetail implements UserDetails {
 		}
 	}
 
+	public int getUserId() {
+		if (customer != null) {
+			// Assuming Customer class has a getUserId() method
+			return customer.getAccountId();
+		} else if (seller != null) {
+			// Assuming Seller class has a getUserId() method
+			return seller.getAccountId();
+		} else if (admin != null) {
+			// Assuming Admin class has a getUserId() method
+			return admin.getAccountId();
+		} else {
+			return (Integer) null;
+		}
+	}
+
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub

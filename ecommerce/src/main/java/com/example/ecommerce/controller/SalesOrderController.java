@@ -20,6 +20,7 @@ import com.example.ecommerce.service.OrderDetailService;
 import com.example.ecommerce.service.ShoppingCartService;
 
 import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class SalesOrderController {
@@ -36,22 +37,37 @@ public class SalesOrderController {
 	private OrderDetailService orderDetailService;
 
 	@GetMapping("/check-out")
-	public String checkout(Model model) {
+	public String checkout(Model model, HttpServletRequest request) {
 		// @RequestParam int customerId
-		Customer customer = customerService.findById(5);
-		ShoppingCart shoppingCart = shoppingCartService.getUserShoppingCart(customer.getAccountId());
-		List<CartItem> cartItems = shoppingCart.getCartItems();
-		double cartTotal = cartItems.stream()
-				.mapToDouble(item -> item.getProduct().getProductPrice() * item.getQuantity()).sum();
-		model.addAttribute("cartTotal", cartTotal);
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
+//		Customer customer = customerService.findById(userId);
+//		ShoppingCart shoppingCart = shoppingCartService.getUserShoppingCart(customer.getAccountId());
+//		List<CartItem> cartItems = shoppingCart.getCartItems();
+//		double cartTotal = cartItems.stream()
+//				.mapToDouble(item -> item.getProduct().getProductPrice() * item.getQuantity()).sum();
+//		model.addAttribute("cartTotal", cartTotal);
+//
+//		model.addAttribute("cartItems", cartItems);
+////    	SalesOrder order = new SalesOrder(customer);
+////        sellerOrderService.save(order);
+//
+//		model.addAttribute("customer", customer);
+		
+		if (userId != null) {
+			Customer customer = customerService.findById(userId);
+			ShoppingCart shoppingCart = shoppingCartService.getUserShoppingCart(customer.getAccountId());
+			List<CartItem> cartItems = shoppingCart.getCartItems();
+			double cartTotal = cartItems.stream()
+					.mapToDouble(item -> item.getProduct().getProductPrice() * item.getQuantity()).sum();
+			model.addAttribute("cartTotal", cartTotal);
 
-		model.addAttribute("cartItems", cartItems);
-//    	SalesOrder order = new SalesOrder(customer);
-//        sellerOrderService.save(order);
-
-		model.addAttribute("customer", customer);
-
-		return "cart/check-out";
+			model.addAttribute("cartItems", cartItems);
+			model.addAttribute("customer", customer);
+	        return "cart/check-out";
+	    } else {
+	        // Xử lý khi userId không tồn tại trong session
+	        return "redirect:/error";
+	    }
 	}
 
 	@PostMapping("/confirm-send-email")

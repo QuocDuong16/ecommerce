@@ -147,7 +147,7 @@
 
 						<div class="mb-5">
 							<form th:action="@{'/add-to-cart'}" method="post">
-								<input type="hidden" name="customerId" th:value="5" />
+								<input type="hidden" name="customerId" th:value="${customer.accountId}" />
 								<input type="hidden" name="productId" th:value="${product.productId}" />
 								<div class="input-group mb-3" style="max-width: 120px;">
 									<div class="input-group-prepend">

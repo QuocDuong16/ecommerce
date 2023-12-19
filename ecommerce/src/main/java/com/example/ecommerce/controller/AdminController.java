@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.ecommerce.entity.Category;
 import com.example.ecommerce.entity.OrderDetail;
@@ -105,11 +106,12 @@ public class AdminController {
 	                         @RequestParam("productPrice") float productPrice,
 	                         @RequestParam("productDescription") String productDescription,
 	                         @RequestParam("productColor") String productColor,
+	                         @RequestParam("image") MultipartFile image,
 	                         @RequestParam("supplierId") int supplierId,
 	                         @RequestParam("sellerId") int sellerId,
 	                         @RequestParam("radio_product_type") boolean radio_product_type) {
 	    // Your existing code to handle product creation
-	    productService.addProduct(productName,productCategoryId, productAmount, productPrice, productDescription, productColor, supplierId, sellerId, radio_product_type);
+	    productService.addProduct(productName,productCategoryId, productAmount, productPrice, productDescription, productColor,image, supplierId, sellerId, radio_product_type);
 
 	    // Redirect or return the appropriate view
 	    return "redirect:/admin/add-product"; // Change this to your success view

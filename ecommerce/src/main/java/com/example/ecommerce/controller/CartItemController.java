@@ -18,6 +18,8 @@ import com.example.ecommerce.service.CustomerService;
 import com.example.ecommerce.service.ProductService;
 import com.example.ecommerce.service.ShoppingCartService;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Controller
 public class CartItemController {
 	@Autowired
@@ -30,8 +32,9 @@ public class CartItemController {
 	private CustomerService customerService;
 
 	@GetMapping("/cart")
-	public String viewCart(Model model) {
-		Customer customer = customerService.findById(2);
+	public String viewCart(HttpServletRequest request,Model model) {
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
+    	Customer customer = customerService.findById(userId);
 		ShoppingCart shoppingCart = shoppingCartService.getUserShoppingCart(customer.getAccountId());
 		List<CartItem> cartItems = shoppingCart.getCartItems();
 		

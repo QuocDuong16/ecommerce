@@ -44,7 +44,7 @@
 										</a>
 									</figure>
 									<div class="block-4-text p-4">
-										<h3><a href="shop-single" th:text="${product.productName}"></a></h3>
+										<h3><a th:href="@{'/shop-single/' + ${product.productId}}" th:text="${product.productName}"></a></h3>
 										<p class="mb-0" th:text="${product.productDescription}"></p>
 										<p class="text-primary font-weight-bold" th:text="${product.productPrice}"></p>
 									</div>
