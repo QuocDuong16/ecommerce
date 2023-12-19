@@ -291,9 +291,9 @@
 														<td th:text="${product.seller.fullName}"></td>
 														<td>
 															<div class="custom-icon-group">
-																<a th:href="@{'/admin/delete-product/' + ${product.productId}}" class="btn btn-light btn-icon">
-																	<i class="bi bi-trash"></i>
-																</a>
+																<a th:href="@{'/admin/delete-product?productId=' + ${product.productId}}" class="btn btn-light btn-icon">
+													                <i class="bi bi-trash"></i>
+													            </a>
 																<a th:href="@{'/admin/edit-product/' + ${product.productId}}" class="btn btn-light btn-icon">
 																	<i class="bi bi-pencil"></i>
 																</a>
@@ -346,9 +346,9 @@
 														<td th:text="${product.supplier.supplierName}"></td>
 														<td>
 															<div class="custom-icon-group">
-																<a th:href="@{'/admin/delete-product/' + ${product.productId}}" class="btn btn-light btn-icon">
-																	<i class="bi bi-trash"></i>
-																</a>
+																<a th:href="@{'/admin/delete-product?productId=' + ${product.productId}}" class="btn btn-light btn-icon">
+													                <i class="bi bi-trash"></i>
+													            </a>
 																<a th:href="@{'/admin/edit-product/' + ${product.productId}}" class="btn btn-light btn-icon">
 																	<i class="bi bi-pencil"></i>
 																</a>

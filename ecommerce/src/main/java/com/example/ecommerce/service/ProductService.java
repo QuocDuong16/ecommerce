@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
-	
+
 	public Product getProductById(int id) {
 		return productRepository.findById(id).orElse(null);
 	}
@@ -77,7 +78,8 @@ public class ProductService {
 	}
 
 	public List<Product> searchByName(String name) {
-		// Sử dụng phương thức findBy<FieldName>ContainingIgnoreCase để thực hiện tìm kiếm
+		// Sử dụng phương thức findBy<FieldName>ContainingIgnoreCase để thực hiện tìm
+		// kiếm
 		return productRepository.findByProductNameContainingIgnoreCase(name);
 	}
 
@@ -87,5 +89,20 @@ public class ProductService {
 
 	public List<Product> searchByPriceRange(float minPrice, float maxPrice) {
 		return productRepository.findByProductPriceBetween(minPrice, maxPrice);
+	}
+
+	public void deleteProductById(Integer productId) {
+		// Kiểm tra xem tài khoản có tồn tại hay không
+		Optional<Product> optionalProduct = productRepository.findById(productId);
+		if (optionalProduct.isPresent()) {
+			// Nếu tồn tại, thực hiện xóa
+			Product product = optionalProduct.get();
+			productRepository.delete(product);
+		} else {
+			// Nếu không tồn tại, có thể thực hiện xử lý thông báo hoặc ném một exception
+			// tùy thuộc vào yêu cầu của bạn
+			// Ví dụ: throw new NotFoundException("Account not found with ID: " +
+			// accountId);
+		}
 	}
 }

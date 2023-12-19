@@ -63,15 +63,30 @@ public class AccountService implements AccountServiceInterface {
 			throw new UserNotFoundException("User not found for the given reset token");
 		}
 	}
-	
+
 	public Account getAccountById(int id) {
 		return accountRepository.findById(id).orElse(null);
 	}
-	
-    public void updateAccount(Account updatedAccount) {
-        if (accountRepository.existsById(updatedAccount.getAccountId())) {
-            accountRepository.save(updatedAccount);
-        }
-    }
+
+	public void updateAccount(Account updatedAccount) {
+		if (accountRepository.existsById(updatedAccount.getAccountId())) {
+			accountRepository.save(updatedAccount);
+		}
+	}
+
+	public void deleteAccountById(Integer accountId) {
+		// Kiểm tra xem tài khoản có tồn tại hay không
+		Optional<Account> optionalAdmin = accountRepository.findById(accountId);
+		if (optionalAdmin.isPresent()) {
+			// Nếu tồn tại, thực hiện xóa
+			Account admin = optionalAdmin.get();
+			accountRepository.delete(admin);
+		} else {
+			// Nếu không tồn tại, có thể thực hiện xử lý thông báo hoặc ném một exception
+			// tùy thuộc vào yêu cầu của bạn
+			// Ví dụ: throw new NotFoundException("Account not found with ID: " +
+			// accountId);
+		}
+	}
 
 }

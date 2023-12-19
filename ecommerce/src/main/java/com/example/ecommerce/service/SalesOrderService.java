@@ -1,14 +1,24 @@
 package com.example.ecommerce.service;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.ecommerce.data.AnnualInfo;
+import com.example.ecommerce.data.OrderDetailRequest;
+import com.example.ecommerce.data.PurchaseOrderRequest;
+import com.example.ecommerce.data.SalesOrderRequest;
 import com.example.ecommerce.entity.OrderDetail;
+import com.example.ecommerce.entity.Supplier;
 import com.example.ecommerce.entity.Account.Customer;
+import com.example.ecommerce.entity.Account.Seller;
+import com.example.ecommerce.entity.Key.OrderDetailKey;
 import com.example.ecommerce.entity.Order.PurchaseOrder;
 import com.example.ecommerce.entity.Order.SalesOrder;
 import com.example.ecommerce.repository.SalesOrderRepository;
@@ -17,6 +27,9 @@ import com.example.ecommerce.repository.SalesOrderRepository;
 public class SalesOrderService {
 	@Autowired
 	private SalesOrderRepository salesOrderRepository;
+	
+	@Autowired
+	private CustomerService customerService;
 
 	public Float getTotalRevenueByYear(int year) {
 		float revenue = 0;
@@ -126,6 +139,31 @@ public class SalesOrderService {
 	}
 	
 	public void update(SalesOrder salesOrder) {
+		salesOrderRepository.save(salesOrder);
+	}
+	
+	public void update(SalesOrderRequest request) {
+		SalesOrder salesOrder = getSalesOrderById(request.orderId);
+		Customer customer = customerService.getCustomerById(request.customerId);
+		SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
+
+        try {
+            Date date = sdfInput.parse(request.orderDateCreate);
+
+            long timestamp = date.getTime();
+            salesOrder.setOrderDateCreate(new Timestamp(timestamp));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+		salesOrder.setCustomer(customer);
+		for (OrderDetail orderDetail: salesOrder.getOrderDetails()) {
+			for (OrderDetailRequest o: request.orderDetails) {
+				if (orderDetail.getId().equals(new OrderDetailKey(Integer.valueOf(o.orderId), Integer.valueOf(o.productId)))) {
+					orderDetail.setQuantity(Integer.valueOf(o.quantity));
+				}
+			}
+		}
+		
 		salesOrderRepository.save(salesOrder);
 	}
 }

@@ -13,6 +13,7 @@ import com.example.ecommerce.data.OrderInfo;
 import com.example.ecommerce.entity.OrderDetail;
 import com.example.ecommerce.entity.Account.Admin;
 import com.example.ecommerce.entity.Account.Customer;
+import com.example.ecommerce.entity.Account.Seller;
 import com.example.ecommerce.entity.Order.SalesOrder;
 import com.example.ecommerce.repository.CustomerRepository;
 
@@ -23,6 +24,10 @@ public class CustomerService {
 	
 	public List<Customer> getCustomers() {
 		return customerRepository.findAll();
+	}
+	
+	public Customer getCustomerById(int id) {
+		return customerRepository.findById(id).orElse(null);
 	}
 	
 	public void update(Customer customer) {

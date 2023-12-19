@@ -78,5 +78,9 @@ public class OrderDetail {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	
+	public int getTotalPrice() {
+		return this.quantity * (int) this.product.getProductPrice();
+	}
 }
 

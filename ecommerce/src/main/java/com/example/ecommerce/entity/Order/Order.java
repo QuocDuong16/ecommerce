@@ -79,4 +79,10 @@ public abstract class Order {
 	public void setOrderDetails(List<OrderDetail> orderDetails) {
 		this.orderDetails = orderDetails;
 	}
+	
+	public int calculateTotalPrice() {
+        return getOrderDetails().stream()
+                .mapToInt(OrderDetail::getTotalPrice)
+                .sum();
+    }
 }

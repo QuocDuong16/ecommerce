@@ -26,6 +26,10 @@ public class SellerService {
 		return sellerRepository.findAll();
 	}
 	
+	public Seller getSellerById(int id) {
+		return sellerRepository.findById(id).orElse(null);
+	}
+	
 	public void update(Seller seller) {
 		sellerRepository.save(seller);
 	}

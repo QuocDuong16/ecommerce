@@ -245,227 +245,161 @@
 						<!-- Row start -->
 						<div class="row">
 							<div class="col-sm-12 col-12">
-								<div class="card">
-									<div class="card-header">
-										<div class="card-title">Create Purchase Order</div>
-									</div>
-									<div class="card-body">
-
-										<div class="create-invoice-wrapper">
-
+								<form th:action="@{/admin/edit-purchase-order}" method="post" id="purchaseOrderForm">
+									<div class="card">
+										<div class="card-header">
+											<div class="card-title">Create Purchase Order</div>
+										</div>
+										<div class="card-body">
+	
+											<div class="create-invoice-wrapper">
+	
+												<!-- Row start -->
+												<div class="row">
+													<div class="col-xxl-4 col-lg-5 col-sm-6 col-12">
+	
+														<!-- Row start -->
+														<div class="row">
+															<div class="col-sm-12 col-12">
+																<input type="text" name="orderId" hidden th:value="${order.orderId}">
+																<!-- Form group start -->
+																<div class="mb-3">
+																	<label class="form-label">Supplier <span class="text-red">*</span></label>
+																	<select name="supplierId" class="form-control">
+																		<option 
+																			th:each="supplier : ${suppliers}" 
+																			th:value="${supplier.supplierId}" 
+																			th:text="${supplier.supplierName}" 
+																			th:selected="${supplier.supplierId == order.supplier.supplierId}"></option>
+																	</select>
+																</div>
+																<!-- Form group end -->
+	
+															</div>
+															<div class="col-sm-6 col-12">
+	
+																<!-- Form group start -->
+																<div class="mb-3">
+																	<label for="invNumber" class="form-label">Order Type</label>
+																	<input type="text" class="form-control" value="Purchase" readonly>
+																</div>
+																<!-- Form group end -->
+	
+															</div>
+															<div class="col-sm-6 col-12">
+	
+																<!-- Form group start -->
+																<div class="mb-3">
+																	<label for="dueDate" class="form-label">Due Date</label>
+																	<div class="input-group ">
+																		<span hidden id="date" th:text="${formattedDate}"></span>
+																		<input name="orderDateCreate" type="text" class="form-control datepicker-opens-left" id="dueDate"
+																			placeholder="yyyy-MM-dd HH:mm:ss.SSSSSS">
+																		<span class="input-group-text"> <i class="bi bi-calendar4"></i> </span>
+																		<script>
+																			document.getElementById('dueData').value = document.getElementById('date').textContent
+																		</script>
+																	</div>
+																</div>
+																<!-- Form group end -->
+	
+															</div>
+														</div>
+														<!-- Row end -->
+	
+													</div>
+												</div>
+												<!-- Row end -->
+	
+											</div>
+	
 											<!-- Row start -->
 											<div class="row">
-												<div class="col-xxl-4 col-lg-5 col-sm-6 col-12">
-
-													<!-- Row start -->
-													<div class="row">
-														<div class="col-sm-12 col-12">
-
-															<!-- Form group start -->
-															<div class="mb-3">
-																<label for="customerName" class="form-label">Supplier Name</label>
-																<select class="form-control">
-																	<option value="Select Supplier">Select Supplier</option>
-																	<option value="Mobiles">Mobiles</option>
-																	<option value="Books">Books</option>
-																	<option value="Games">Games</option>
-																</select>
-															</div>
-															<!-- Form group end -->
-
-														</div>
-														<div class="col-sm-6 col-12">
-
-															<!-- Form group start -->
-															<div class="mb-3">
-																<label for="invNumber" class="form-label">Order Type</label>
-																<input type="text" class="form-control" value="Purchase" readonly>
-															</div>
-															<!-- Form group end -->
-
-														</div>
-														<div class="col-sm-6 col-12">
-
-															<!-- Form group start -->
-															<div class="mb-3">
-																<label for="dueDate" class="form-label">Due Date</label>
-																<div class="input-group ">
-																	<input type="text" class="form-control datepicker-opens-left" id="dueDate"
-																		placeholder="DD/MM/YYYY">
-																	<span class="input-group-text"> <i class="bi bi-calendar4"></i> </span>
-																</div>
-															</div>
-															<!-- Form group end -->
-
+												<div class="col-12">
+													<div class="table-responsive">
+														<table class="table table-bordered invoice-table">
+															<thead>
+																<tr>
+																	<th colspan="3" class="pt-3 pb-3">Items/Products</th>
+																</tr>
+																<tr>
+																	<th>Product Name</th>
+																	<th>Quantity</th>
+																	<th>Price</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr th:each="orderDetail: ${orderDetails}" name="orderDetailRow">
+																	<td>
+																		<!-- Form group start -->
+																		<select name="productId" th:value="${orderDetail.product.productId}" class="form-select product" disabled>
+																			<option th:each="product : ${products}"
+																				th:selected="${product.productId == orderDetail.product.productId}" th:value="${product.productId}" th:text="${product.productName}"></option>
+																		</select>
+																		<span hidden th:text="${orderDetail.product.productPrice}"></span>
+																		<!-- Form group end -->
+																	</td>
+																	<td>
+																		<!-- Form group start -->
+																		<div class="m-0">
+																			<input name="quantity" type="number" inputmode="numeric" min="1" th:value="${orderDetail.quantity}" class="form-control quantity-input" placeholder="Qty">
+																		</div>
+																		<!-- Form group end -->
+																	</td>
+																	<td>
+																		<!-- Form group start -->
+																		<div class="input-group m-0">
+																			<input type="number" min="0" th:value="${orderDetail.getTotalPrice()}" class="form-control total-price-input" readonly>
+																			<span class="input-group-text">VND</span>
+																		</div>
+																		<!-- Form group end -->
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<button class="btn btn-dark" disabled>Add New Row</button>
+																	</td>
+																	<td colspan="2">
+																		<div class="row justify-content-end">
+																			<div class="col-auto">
+																				<label class="col-form-label">Discount % of Total Amount</label>
+																			</div>
+																			<div class="col-auto">
+																				<input type="text" class="form-control" placeholder="0%" readonly>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+																<tr>
+																	<td colspan="1">&nbsp;</td>
+																	<td>
+																		<p class="m-0">Subtotal</p>
+																		<p class="m-0">Discount</p>
+																		<h5 class="mt-2 text-red">Total VND</h5>
+																	</td>
+																	<td>
+																		<p class="m-0"><span id="subtotal" th:text="${totalPrice}"></span> VND</p>
+																		<p class="m-0">0.00 VND</p>
+																		<h5 class="mt-2 text-red"><span id="total" th:text="${totalPrice}"></span> VND</h5>
+																	</td>
+																</tr>
+															</tbody>
+														</table>																										
+													</div>
+												</div>
+												<div class="col-12">
+													<div class="invoice-footer">
+														<div class="text-end">
+															<button type="submit" class="btn btn-success">Save Purchase Order</button>
 														</div>
 													</div>
-													<!-- Row end -->
-
 												</div>
 											</div>
 											<!-- Row end -->
-
+	
 										</div>
-
-										<!-- Row start -->
-										<div class="row">
-											<div class="col-12">
-												<div class="table-responsive">
-													<table class="table table-bordered invoice-table">
-														<thead>
-															<tr>
-																<th colspan="4" class="pt-3 pb-3">Items/Products</th>
-															</tr>
-															<tr>
-																<th>Product Name</th>
-																<th>Quantity</th>
-																<th>Price</th>
-																<th>Actions</th>
-															</tr>
-														</thead>
-														<tbody>
-															<tr>
-																<td>
-																	<!-- Form group start -->
-																	<select class="form-select">
-																		<option>Select Product</option>
-																		<option>Mobiles</option>
-																		<option>Books</option>
-																		<option>Clothing</option>
-																		<option>Electronics</option>
-																		<option>Food</option>
-																		<option>Games</option>
-																		<option>Gifts</option>
-																		<option>Laptops</option>
-																		<option>Mobiles</option>
-																		<option>Music</option>
-																		<option>Office</option>
-																		<option>Pharmacy</option>
-																		<option>Sports</option>
-																		<option>Toys</option>
-																	</select>
-																	<!-- Form group end -->
-																</td>
-																<td>
-																	<!-- Form group start -->
-																	<div class="m-0">
-																		<input type="number" inputmode="numeric" min="1" class="form-control" placeholder="Qty">
-																	</div>
-																	<!-- Form group end -->
-																</td>
-																<td>
-																	<!-- Form group start -->
-																	<div class="input-group m-0">
-																		<input type="number" min="0" step="1000" class="form-control">
-																		<span class="input-group-text">VND</span>
-																	</div>
-																	<!-- Form group end -->
-																</td>
-																<td>
-																	<div class="custom-icon-group">
-																		<button class="btn btn-light btn-icon">
-																			<i class="bi bi-trash"></i>
-																		</button>
-																		<button class="btn btn-light btn-icon">
-																			<i class="bi bi-pencil"></i>
-																		</button>
-																	</div>
-																</td>
-															</tr>
-															<tr>
-																<td>
-																	<!-- Form group start -->
-																	<select class="form-select">
-																		<option>Select Product</option>
-																		<option>Mobiles</option>
-																		<option>Books</option>
-																		<option>Clothing</option>
-																		<option>Electronics</option>
-																		<option>Food</option>
-																		<option>Games</option>
-																		<option>Gifts</option>
-																		<option>Laptops</option>
-																		<option>Mobiles</option>
-																		<option>Music</option>
-																		<option>Office</option>
-																		<option>Pharmacy</option>
-																		<option>Sports</option>
-																		<option>Toys</option>
-																	</select>
-																	<!-- Form group end -->
-																</td>
-																<td>
-																	<!-- Form group start -->
-																	<div class="m-0">
-																		<input type="number" inputmode="numeric" min="1" class="form-control" placeholder="Qty">
-																	</div>
-																	<!-- Form group end -->
-																</td>
-																<td>
-																	<!-- Form group start -->
-																	<div class="input-group m-0">
-																		<input type="number" min="0" step="1000" class="form-control">
-																		<span class="input-group-text">VND</span>
-																	</div>
-																	<!-- Form group end -->
-																</td>
-																<td>
-																	<div class="custom-icon-group">
-																		<button class="btn btn-light btn-icon">
-																			<i class="bi bi-trash"></i>
-																		</button>
-																		<button class="btn btn-light btn-icon">
-																			<i class="bi bi-pencil"></i>
-																		</button>
-																	</div>
-																</td>
-															</tr>
-															<tr>
-																<td>
-																	<button class="btn btn-dark">
-																		Add New Row
-																	</button>
-																</td>
-																<td colspan="3">
-																	<div class="row justify-content-end">
-																		<div class="col-auto">
-																			<label class="col-form-label">Discount % of Total Amount</label>
-																		</div>
-																		<div class="col-auto">
-																			<input type="text" class="form-control" placeholder="0%" readonly>
-																		</div>
-																	</div>
-																</td>
-															</tr>
-															<tr>
-																<td colspan="2">&nbsp;</td>
-																<td>
-																	<p class="m-0">Subtotal</p>
-																	<p class="m-0">Discount</p>
-																	<h5 class="mt-2 text-red">Total VND</h5>
-																</td>
-																<td>
-																	<p class="m-0">0.00 VND</p>
-																	<p class="m-0">0.00 VND</p>
-																	<h5 class="mt-2 text-red">0.00 VND</h5>
-																</td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-											</div>
-											<div class="col-12">
-												<div class="invoice-footer">
-													<div class="text-end">
-														<a href="invoice-list.html" class="btn btn-success ms-1">Create Purchase Order</a>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- Row end -->
-
 									</div>
-								</div>
+								</form>
 							</div>
 						</div>
 						<!-- Row end -->
@@ -513,7 +447,78 @@
 
 		<!-- Main Js Required -->
 		<script th:src="@{/assets/js/main.js}"></script>
+		<script>
+			$(document).ready(function () {
+				$('.quantity-input').on('change', function () {
+					var quantity = $(this).val();
+					var productPrice = $(this).closest('tr').find('.product').next('span').text();
+		
+					var totalPrice = parseFloat(quantity) * parseFloat(productPrice);
+					$(this).closest('tr').find('.total-price-input').val(totalPrice.toFixed(2));
+		
+					updateTotal();
+				});
+		
+				function updateTotal() {
+					var totalPrices = 0;
+		
+					$('.total-price-input').each(function () {
+						totalPrices += parseFloat($(this).val());
+					});
+		
+					$('#subtotal').text(totalPrices.toFixed(2));
+					$('#total').text(totalPrices.toFixed(2));
+				}
+			});
+		</script>
+		<script th:inline="javascript">
+			$(document).ready(function () {
+				$("#purchaseOrderForm").submit(function (event) {
+					event.preventDefault();
+					var orderId = document.getElementsByName("orderId")[0].value;
+					var orderDateCreate = document.getElementsByName("orderDateCreate")[0].value;
+					var supplierId = document.getElementsByName("supplierId")[0].value;
+					var orderDetailRows = document.getElementsByName("orderDetailRow");
+					var orderDetails = [];
+					for (var i = 0; i < orderDetailRows.length; i++) {
+						var productId = orderDetailRows[i].getElementsByTagName('select')[0].value;
+    					var quantity = orderDetailRows[i].getElementsByTagName('input')[0].value;
+						orderDetails.push(
+							{
+								orderId: orderId,
+								productId: productId,
+								quantity: quantity
+							}
+						)
+					}
+					var formData = $("#purchaseOrderForm").serialize();
+					console.log(formData)
+					var data = {
+							orderId: orderId,
+							orderDateCreate: orderDateCreate,
+							supplierId: supplierId,
+							orderDetails: orderDetails
+						}
+					console.log(data)
+					$.ajax({
+						type: "POST",
+						url: "/admin/edit-purchase-order", // Thay thế bằng đường dẫn API thực sự
+						contentType: 'application/json',
+						data: JSON.stringify(data),
+						success: function (response) {
+							// Xử lý kết quả thành công
+							console.log("Success:", response);
+							window.location.href = "/admin/data-orders";
+						},
+						error: function (error) {
+							// Xử lý lỗi
+							console.log("Error:", error);
+						}
+					});
+				});
+			});
 
+		</script>
 	</body>
 
 </html>

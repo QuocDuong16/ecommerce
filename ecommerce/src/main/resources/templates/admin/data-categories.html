@@ -275,9 +275,9 @@
 														<td th:text="${category.categoryName}"></td>
 														<td>
 															<div class="custom-icon-group">
-																<a th:href="@{'/admin/delete-category/' + ${category.categoryId}}" class="btn btn-light btn-icon">
-																	<i class="bi bi-trash"></i>
-																</a>
+																<a th:href="@{'/admin/delete-category?categoryId=' + ${category.categoryId}}" class="btn btn-light btn-icon" onclick="confirmDelete()">
+													                <i class="bi bi-trash"></i>
+													            </a>
 																<a th:href="@{'/admin/edit-category/' + ${category.categoryId}}" class="btn btn-light btn-icon">
 																	<i class="bi bi-pencil"></i>
 																</a>

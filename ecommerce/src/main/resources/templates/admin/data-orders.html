@@ -277,9 +277,9 @@
 														<td th:text="${order.orderDateCreate}"></td>
 														<td>
 															<div class="custom-icon-group">
-																<a th:href="@{'/admin/delete-order/' + ${order.orderId}}" class="btn btn-light btn-icon">
-																	<i class="bi bi-trash"></i>
-																</a>
+																<a th:href="@{'/admin/delete-order?orderId=' + ${order.orderId}}" class="btn btn-light btn-icon">
+													                <i class="bi bi-trash"></i>
+													            </a>
 																<a th:href="@{'/admin/edit-purchase-order/' + ${order.orderId}}" class="btn btn-light btn-icon">
 																	<i class="bi bi-pencil"></i>
 																</a>
@@ -318,9 +318,9 @@
 														<td th:text="${order.orderDateCreate}"></td>
 														<td>
 															<div class="custom-icon-group">
-																<a th:href="@{'/admin/delete-order/' + ${order.orderId}}" class="btn btn-light btn-icon">
-																	<i class="bi bi-trash"></i>
-																</a>
+																<a th:href="@{'/admin/delete-order?orderId=' + ${order.orderId}}" class="btn btn-light btn-icon">
+													                <i class="bi bi-trash"></i>
+													            </a>
 																<a th:href="@{'/admin/edit-sale-order/' + ${order.orderId}}" class="btn btn-light btn-icon">
 																	<i class="bi bi-pencil"></i>
 																</a>

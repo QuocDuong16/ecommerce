@@ -245,51 +245,53 @@
 						<!-- Row start -->
 						<div class="row">
 							<div class="col-sm-12 col-12">
-								<div class="card">
-									<div class="card-header">
-										<div class="card-title">Supplier Information</div>
-									</div>
-									<div class="card-body">
-
-										<div class="row">
-											<div class="col-sm-12 col-12">
-												<div class="card-border">
-													<div class="card-border-title">General Information</div>
-													<div class="card-border-body">
-
-														<div class="row">
-															<div class="col-sm-6 col-12">
-																<div class="mb-3">
-																	<label class="form-label">Supplier Name <span class="text-red">*</span></label>
-																	<input type="text" class="form-control" placeholder="Enter Supplier Name" required>
+								<form th:action="@{/admin/edit-supplier}" th:object="${supplier}" method="post">
+									<div class="card">
+										<div class="card-header">
+											<div class="card-title">Supplier Information</div>
+										</div>
+										<div class="card-body">
+											<input type="hidden" th:field="*{supplierId}">
+											<div class="row">
+												<div class="col-sm-12 col-12">
+													<div class="card-border">
+														<div class="card-border-title">General Information</div>
+														<div class="card-border-body">
+	
+															<div class="row">
+																<div class="col-sm-6 col-12">
+																	<div class="mb-3">
+																		<label class="form-label">Supplier Name <span class="text-red">*</span></label>
+																		<input type="text" class="form-control" placeholder="Enter Supplier Name" th:field="*{supplierName}" required>
+																	</div>
+																</div>
+																<div class="col-sm-6 col-12">
+																	<div class="mb-3">
+																		<label class="form-label">Supplier Email <span class="text-red">*</span></label>
+																		<input type="email" inputmode="email" class="form-control" placeholder="Enter Supplier Email" th:field="*{email}" required>
+																	</div>
+																</div>
+																<div class="col-sm-6 col-12">
+																	<div class="mb-3">
+																		<label class="form-label">Supplier Address</label>
+																		<input type="text" class="form-control" placeholder="Enter Supplier Address" th:field="*{address}">
+																	</div>
 																</div>
 															</div>
-															<div class="col-sm-6 col-12">
-																<div class="mb-3">
-																	<label class="form-label">Supplier Email <span class="text-red">*</span></label>
-																	<input type="email" inputmode="email" class="form-control" placeholder="Enter Supplier Email" required>
-																</div>
-															</div>
-															<div class="col-sm-6 col-12">
-																<div class="mb-3">
-																	<label class="form-label">Supplier Address <span class="text-red">*</span></label>
-																	<input type="text" class="form-control" placeholder="Enter Supplier Address">
-																</div>
-															</div>
+	
 														</div>
-
+													</div>
+												</div>
+												<div class="col-sm-12 col-12">
+													<div class="custom-btn-group flex-end">
+														<button type="submit" class="btn btn-success">Save Supplier</button>
 													</div>
 												</div>
 											</div>
-											<div class="col-sm-12 col-12">
-												<div class="custom-btn-group flex-end">
-													<a href="products.html" class="btn btn-success">Save Supplier</a>
-												</div>
-											</div>
+	
 										</div>
-
 									</div>
-								</div>
+								</form>
 							</div>
 						</div>
 						<!-- Row end -->

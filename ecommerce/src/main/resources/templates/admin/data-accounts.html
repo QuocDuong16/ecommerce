@@ -281,7 +281,7 @@
 													<td th:text="${admin.address}"></td>
 													<td>
 														<div class="custom-icon-group">
-															<a th:href="@{'/admin/delete-account/' + ${admin.accountId}}" class="btn btn-light btn-icon">
+															<a th:href="@{'/admin/delete-account?accountId=' + ${admin.accountId}}" class="btn btn-light btn-icon">
 																<i class="bi bi-trash"></i>
 															</a>
 															<a th:href="@{'/admin/edit-account/' + ${admin.accountId}}" class="btn btn-light btn-icon">
@@ -326,7 +326,7 @@
 													<td th:text="${customer.address}"></td>
 													<td>
 														<div class="custom-icon-group">
-															<a th:href="@{'/admin/delete-account/' + ${customer.accountId}}" class="btn btn-light btn-icon">
+															<a th:href="@{'/admin/delete-account?accountId=' + ${customer.accountId}}" class="btn btn-light btn-icon">
 																<i class="bi bi-trash"></i>
 															</a>
 															<a th:href="@{'/admin/edit-account/' + ${customer.accountId}}" class="btn btn-light btn-icon">
@@ -371,7 +371,7 @@
 													<td th:text="${seller.address}"></td>
 													<td>
 														<div class="custom-icon-group">
-															<a th:href="@{'/admin/delete-account/' + ${seller.accountId}}" class="btn btn-light btn-icon">
+															<a th:href="@{'/admin/delete-account?accountId=' + ${seller.accountId}}" class="btn btn-light btn-icon">
 																<i class="bi bi-trash"></i>
 															</a>
 															<a th:href="@{'/admin/edit-account/' + ${seller.accountId}}" class="btn btn-light btn-icon">
