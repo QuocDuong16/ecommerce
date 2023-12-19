@@ -113,32 +113,34 @@
             </div>
           </div>
         </div>
-        <form th:action="@{'/confirm-send-email'}" method="post">
+        <form th:action="@{'/confirm-send-email'}" method="post" th:object="${customer}">
 	        <div class="row">
 	          <div class="col-md-6 mb-5 mb-md-0">
 	            <h2 class="h3 mb-3 text-black">Billing Details</h2>
+	            <input type="text" hidden th:field="*{accountId}">
+				<input type="text" hidden th:field="*{password}">
 	            <div class="p-3 p-lg-5 border">
 	              <div class="form-group row">
 	                <div class="col-md-6">
 	                  <label for="c_fullname" class="text-black">Full Name <span class="text-danger">*</span></label>
-	                  <input type="text" class="form-control" id="c_fullname" name="c_fullname" th:value="${Customer.fullName}">
+	                  <input type="text" class="form-control" id="c_fullname" name="c_fullname" th:field="*{fullName}">
 	                </div>
 	              </div>
 	              <div class="form-group row">
 	                <div class="col-md-12">
 	                  <label for="c_address" class="text-black">Address <span class="text-danger">*</span></label>
-	                  <input type="text" class="form-control" id="c_address" name="c_address" placeholder="Street address" th:value="${Customer.address}">
+	                  <input type="text" class="form-control" id="c_address" name="c_address" placeholder="Street address" th:field="*{address}">
 	                </div>
 	              </div>
 	
 	              <div class="form-group row mb-5">
 	                <div class="col-md-6">
 	                  <label for="c_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
-	                  <input type="text" class="form-control" id="c_email_address" name="c_email_address" th:value="${Customer.email}">
+	                  <input type="text" class="form-control" id="c_email_address" name="c_email_address" th:field="*{email}">
 	                </div>
 	                <div class="col-md-6">
 	                  <label for="c_phone" class="text-black">Phone <span class="text-danger">*</span></label>
-	                  <input type="text" class="form-control" id="c_phone" name="c_phone" placeholder="Phone Number" th:value="${Customer.phone}">
+	                  <input type="text" class="form-control" id="c_phone" name="c_phone" placeholder="Phone Number" th:field="*{phone}">
 	                </div>
 	              </div>
 	            </div>

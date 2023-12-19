@@ -1,5 +1,6 @@
 package com.example.ecommerce.controller;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.ecommerce.entity.Category;
+import com.example.ecommerce.entity.OrderDetail;
 import com.example.ecommerce.entity.Supplier;
 import com.example.ecommerce.entity.Account.Seller;
 import com.example.ecommerce.entity.Order.PurchaseOrder;
@@ -124,8 +126,8 @@ public class AdminController {
 		return "admin/add-purchase-order";
 	}
 	@PostMapping("/add-to-purchase-order")
-	public String AddPurchaseOrder(@ModelAttribute PurchaseOrder purchaseOrder) {
-		purchaseOrderService.AddPurchaseOrder(purchaseOrder);
+	public String AddPurchaseOrder(@RequestParam("supplierId") int supplierId,@RequestParam("due-date") String date,@RequestParam("orderDetailsRow") List<OrderDetail> orderDetailsRow) {
+		purchaseOrderService.AddPurchaseOrder(supplierId, date, orderDetailsRow);
 		return "redirect:/admin/add-purchase-order";
 	}
 	

@@ -31,7 +31,10 @@ public class CartItemController {
 
 	@GetMapping("/cart")
 	public String viewCart(Model model) {
-		List<CartItem> cartItems = cartItemService.getCartItems();
+		Customer customer = customerService.findById(2);
+		ShoppingCart shoppingCart = shoppingCartService.getUserShoppingCart(customer.getAccountId());
+		List<CartItem> cartItems = shoppingCart.getCartItems();
+		
 		model.addAttribute("cartItems", cartItems);
 		double cartTotal = cartItems.stream()
 			    .mapToDouble(item -> item.getProduct().getProductPrice() * item.getQuantity())
