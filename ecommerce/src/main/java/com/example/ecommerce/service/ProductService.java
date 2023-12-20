@@ -1,5 +1,8 @@
 package com.example.ecommerce.service;
 
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -9,11 +12,19 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.ecommerce.data.ImageUtils;
 import com.example.ecommerce.data.OrderInfo;
 import com.example.ecommerce.entity.Category;
 import com.example.ecommerce.entity.OrderDetail;
+import com.example.ecommerce.entity.Supplier;
+import com.example.ecommerce.entity.Account.Seller;
+import com.example.ecommerce.entity.Product.EnterpriseProduct;
+import com.example.ecommerce.entity.Product.IndividualProduct;
 import com.example.ecommerce.entity.Product.Product;
+import com.example.ecommerce.repository.EnterpriseProductRepository;
+import com.example.ecommerce.repository.IndividualProductRepository;
 import com.example.ecommerce.repository.ProductRepository;
 
 @Service
@@ -21,6 +32,21 @@ public class ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
+
+	@Autowired
+	private CategoryService categoryService;
+
+	@Autowired
+	private SupplierService supplierService;
+
+	@Autowired
+	private SellerService sellerService;
+
+	@Autowired
+	private IndividualProductRepository individualProductRepository;
+
+	@Autowired
+	private EnterpriseProductRepository enterpriseProductRepository;
 
 	public Product getProductById(int id) {
 		return productRepository.findById(id).orElse(null);
@@ -63,6 +89,54 @@ public class ProductService {
 		}
 		Collections.sort(orderInfos, (p1, p2) -> Integer.compare(p2.quantity(), p1.quantity()));
 		return orderInfos.size() < 10 ? orderInfos : orderInfos.subList(0, 10);
+	}
+
+	public void addProduct(String productName, int productCategoryId, int productAmount, float productPrice,
+			String productDescription, String productColor, MultipartFile image, int supplierId, int sellerId,
+			boolean radio_product_type) {
+		Category category = categoryService.getCategoryById(productCategoryId);
+
+		if (!radio_product_type) {
+			EnterpriseProduct enterpriseProduct = new EnterpriseProduct();
+			Supplier supplier = supplierService.getSupplierById(supplierId);
+			enterpriseProduct.setSupplier(supplier);
+			enterpriseProduct.setProductName(productName);
+			enterpriseProduct.setProductAmount(productAmount);
+			enterpriseProduct.setProductPrice(productPrice);
+			enterpriseProduct.setProductDescription(productDescription);
+			enterpriseProduct.setColor(productColor);
+			try {
+				byte[] resizedImageBytes = ImageUtils.resizeImage(image, 250, 250);
+				Blob imageBlob = ImageUtils.convertToBlob(resizedImageBytes);
+				enterpriseProduct.setProductImage(imageBlob);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			enterpriseProduct.setCategory(category);
+			enterpriseProductRepository.save(enterpriseProduct);
+		} else {
+			IndividualProduct individualProduct = new IndividualProduct();
+			Seller seller = sellerService.getSellerById(sellerId);
+			individualProduct.setSeller(seller);
+			individualProduct.setProductName(productName);
+			individualProduct.setProductAmount(productAmount);
+			individualProduct.setProductPrice(productPrice);
+			individualProduct.setProductDescription(productDescription);
+			individualProduct.setColor(productColor);
+			try {
+				byte[] resizedImageBytes = ImageUtils.resizeImage(image, 250, 250);
+				Blob imageBlob = ImageUtils.convertToBlob(resizedImageBytes);
+				individualProduct.setProductImage(imageBlob);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			individualProduct.setCategory(category);
+			individualProductRepository.save(individualProduct);
+		}
 	}
 
 	public List<Product> findAllProducts() {

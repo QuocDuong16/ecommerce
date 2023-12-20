@@ -30,8 +30,8 @@ public class CustomerService {
 		return customerRepository.findById(id).orElse(null);
 	}
 	
-	public void update(Customer customer) {
-		customerRepository.save(customer);
+	public Customer update(Customer customer) {
+		return customerRepository.save(customer);
 	}
 
 	public List<OrderInfo> findTopFiveCustomers() {

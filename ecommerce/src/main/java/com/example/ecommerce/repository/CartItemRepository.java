@@ -10,5 +10,4 @@ import com.example.ecommerce.entity.Key.CartItemKey;
 
 @Repository
 public interface CartItemRepository extends JpaRepository<CartItem, CartItemKey> {
-	public Optional<CartItem> findById(CartItemKey cartItemKey);
 }

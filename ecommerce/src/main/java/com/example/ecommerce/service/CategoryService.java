@@ -26,6 +26,12 @@ public class CategoryService {
 		categoryRepository.save(category);
 	}
 
+	public void addToCategory(String categoryName) {
+		Category category = new Category();
+		category.setCategoryName(categoryName);
+		categoryRepository.save(category);
+	}
+
 	public void deleteCategoryById(Integer categoryId) {
 		// Kiểm tra xem tài khoản có tồn tại hay không
 		Optional<Category> optionalCategory = categoryRepository.findById(categoryId);
@@ -34,10 +40,7 @@ public class CategoryService {
 			Category category = optionalCategory.get();
 			categoryRepository.delete(category);
 		} else {
-			// Nếu không tồn tại, có thể thực hiện xử lý thông báo hoặc ném một exception
-			// tùy thuộc vào yêu cầu của bạn
-			// Ví dụ: throw new NotFoundException("Account not found with ID: " +
-			// accountId);
+
 		}
 	}
 }

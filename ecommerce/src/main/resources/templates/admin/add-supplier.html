@@ -1,254 +1,256 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-	<head>
-		<!-- Required meta tags -->
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<!-- Meta -->
-		<meta name="description" content="Moonlight - Responsive Bootstrap 5 Dashboard Template">
-		<meta name="author" content="Bootstrap Gallery" />
-		<link rel="canonical" href="https://www.bootstrap.gallery/">
-		<meta property="og:url" content="https://www.bootstrap.gallery">
-		<meta property="og:title" content="Admin Templates - Dashboard Templates | Bootstrap Gallery">
-		<meta property="og:description" content="Marketplace for Bootstrap Admin Dashboards">
-		<meta property="og:type" content="Website">
-		<meta property="og:site_name" content="Bootstrap Gallery">
-		<link rel="shortcut icon" th:href="@{/assets/images/favicon.svg}">
+	<!-- Meta -->
+	<meta name="description" content="Moonlight - Responsive Bootstrap 5 Dashboard Template">
+	<meta name="author" content="Bootstrap Gallery" />
+	<link rel="canonical" href="https://www.bootstrap.gallery/">
+	<meta property="og:url" content="https://www.bootstrap.gallery">
+	<meta property="og:title" content="Admin Templates - Dashboard Templates | Bootstrap Gallery">
+	<meta property="og:description" content="Marketplace for Bootstrap Admin Dashboards">
+	<meta property="og:type" content="Website">
+	<meta property="og:site_name" content="Bootstrap Gallery">
+	<link rel="shortcut icon" th:href="@{/assets/images/favicon.svg}">
 
-		<!-- Title -->
-		<title>Modern Admin Dashboards</title>
+	<!-- Title -->
+	<title>Modern Admin Dashboards</title>
 
 
-		<!-- *************
+	<!-- *************
 			************ Common Css Files *************
 		************ -->
 
-		<!-- Animated css -->
-		<link rel="stylesheet" th:href="@{/assets/css/animate.css}">
+	<!-- Animated css -->
+	<link rel="stylesheet" th:href="@{/assets/css/animate.css}">
 
-		<!-- Bootstrap font icons css -->
-		<link rel="stylesheet" th:href="@{/assets/fonts/bootstrap/bootstrap-icons.css}">
+	<!-- Bootstrap font icons css -->
+	<link rel="stylesheet" th:href="@{/assets/fonts/bootstrap/bootstrap-icons.css}">
 
-		<!-- Main css -->
-		<link rel="stylesheet" th:href="@{/assets/css/main.min.css}">
+	<!-- Main css -->
+	<link rel="stylesheet" th:href="@{/assets/css/main.min.css}">
 
 
-		<!-- *************
+	<!-- *************
 			************ Vendor Css Files *************
 		************ -->
 
-		<!-- Scrollbar CSS -->
-		<link rel="stylesheet" th:href="@{/assets/vendor/overlay-scroll/OverlayScrollbars.min.css}">
+	<!-- Scrollbar CSS -->
+	<link rel="stylesheet" th:href="@{/assets/vendor/overlay-scroll/OverlayScrollbars.min.css}">
 
-		<!-- Uploader CSS -->
-		<link rel="stylesheet" th:href="@{/assets/vendor/dropzone/dropzone.min.css}" />
+	<!-- Uploader CSS -->
+	<link rel="stylesheet" th:href="@{/assets/vendor/dropzone/dropzone.min.css}" />
 
-	</head>
+</head>
 
-	<body>
+<body>
 
-		<!-- Page wrapper start -->
-		<div class="page-wrapper">
+	<!-- Page wrapper start -->
+	<div class="page-wrapper">
 
-			<!-- Sidebar wrapper start -->
-			<nav class="sidebar-wrapper">
+		<!-- Sidebar wrapper start -->
+		<nav class="sidebar-wrapper">
 
-				<!-- Sidebar brand starts -->
-				<div class="sidebar-brand">
-					<a th:href="@{/admin/}" class="logo">
-						<img th:src="@{/assets/images/logo.svg}" alt="Moonlight Admin Dashboard" />
-					</a>
+			<!-- Sidebar brand starts -->
+			<div class="sidebar-brand">
+				<a th:href="@{/admin/}" class="logo">
+					<img th:src="@{/assets/images/logo.svg}" alt="Moonlight Admin Dashboard" />
+				</a>
+			</div>
+			<!-- Sidebar brand starts -->
+
+			<!-- Sidebar menu starts -->
+			<div class="sidebar-menu">
+				<div class="sidebarMenuScroll">
+					<ul>
+						<li>
+							<a th:href="@{/admin/}">
+								<i class="bi bi-house"></i>
+								Dashboards
+							</a>
+						</li>
+						<li class="sidebar-dropdown">
+							<a href="#">
+								<i class="bi bi-handbag"></i>
+								<span class="menu-text">Product</span>
+							</a>
+							<div class="sidebar-submenu">
+								<ul>
+									<li>
+										<a th:href="@{/admin/add-product}">Add Product</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="sidebar-dropdown">
+							<a href="#">
+								<i class="bi bi-card-list"></i>
+								<span class="menu-text">Category</span>
+							</a>
+							<div class="sidebar-submenu">
+								<ul>
+									<li>
+										<a th:href="@{/admin/add-category}">Add Category</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="sidebar-dropdown active">
+							<a href="#">
+								<i class="bi bi-building"></i>
+								<span class="menu-text">Supplier</span>
+							</a>
+							<div class="sidebar-submenu">
+								<ul>
+									<li>
+										<a th:href="@{/admin/add-supplier}" class="current-page">Add Supplier</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="sidebar-dropdown">
+							<a href="#">
+								<i class="bi bi-journals"></i>
+								<span class="menu-text">Purchase Orders</span>
+							</a>
+							<div class="sidebar-submenu">
+								<ul>
+									<li>
+										<a th:href="@{/admin/add-purchase-order}">Add Purchase Order</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="sidebar-dropdown">
+							<a href="#">
+								<i class="bi bi-window-split"></i>
+								<span class="menu-text">Tables</span>
+							</a>
+							<div class="sidebar-submenu">
+								<ul>
+									<li>
+										<a th:href="@{/admin/data-orders}">Data Orders</a>
+									</li>
+									<li>
+										<a th:href="@{/admin/data-suppliers}">Data Suppliers</a>
+									</li>
+									<li>
+										<a th:href="@{/admin/data-categories}">Data Categories</a>
+									</li>
+									<li>
+										<a th:href="@{/admin/data-accounts}">Data Accounts</a>
+									</li>
+									<li>
+										<a th:href="@{/admin/data-products}">Data Products</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="sidebar-dropdown">
+							<a href="#">
+								<i class="bi bi-x-diamond"></i>
+								<span class="menu-text">Authentication</span>
+							</a>
+							<div class="sidebar-submenu">
+								<ul>
+									<li>
+										<a th:href="@{/admin/login}">Login</a>
+									</li>
+									<li>
+										<a th:href="@{/admin/signup}">Signup</a>
+									</li>
+									<li>
+										<a th:href="@{/admin/error}">Error</a>
+									</li>
+									<li>
+										<a th:href="@{/admin/maintenance}">Maintenance</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+					</ul>
 				</div>
-				<!-- Sidebar brand starts -->
-	
-				<!-- Sidebar menu starts -->
-				<div class="sidebar-menu">
-					<div class="sidebarMenuScroll">
-						<ul>
-							<li>
-								<a th:href="@{/admin/}">
-									<i class="bi bi-house"></i>
-									Dashboards
-								</a>
-							</li>
-							<li class="sidebar-dropdown">
-								<a href="#">
-									<i class="bi bi-handbag"></i>
-									<span class="menu-text">Product</span>
-								</a>
-								<div class="sidebar-submenu">
-									<ul>
-										<li>
-											<a th:href="@{/admin/add-product}" >Add Product</a>
-										</li>
-									</ul>
-								</div>
-							</li>
-							<li class="sidebar-dropdown">
-								<a href="#">
-									<i class="bi bi-card-list"></i>
-									<span class="menu-text">Category</span>
-								</a>
-								<div class="sidebar-submenu">
-									<ul>
-										<li>
-											<a th:href="@{/admin/add-category}" >Add Category</a>
-										</li>
-									</ul>
-								</div>
-							</li>
-							<li class="sidebar-dropdown active">
-								<a href="#">
-									<i class="bi bi-building"></i>
-									<span class="menu-text">Supplier</span>
-								</a>
-								<div class="sidebar-submenu">
-									<ul>
-										<li>
-											<a th:href="@{/admin/add-supplier}" class="current-page">Add Supplier</a>
-										</li>
-									</ul>
-								</div>
-							</li>
-							<li class="sidebar-dropdown">
-								<a href="#">
-									<i class="bi bi-journals"></i>
-									<span class="menu-text">Purchase Orders</span>
-								</a>
-								<div class="sidebar-submenu">
-									<ul>
-										<li>
-											<a th:href="@{/admin/add-purchase-order}">Add Purchase Order</a>
-										</li>
-									</ul>
-								</div>
-							</li>
-							<li class="sidebar-dropdown">
-								<a href="#">
-									<i class="bi bi-window-split"></i>
-									<span class="menu-text">Tables</span>
-								</a>
-								<div class="sidebar-submenu">
-									<ul>
-										<li>
-											<a th:href="@{/admin/data-orders}">Data Orders</a>
-										</li>
-										<li>
-											<a th:href="@{/admin/data-suppliers}">Data Suppliers</a>
-										</li>
-										<li>
-											<a th:href="@{/admin/data-categories}">Data Categories</a>
-										</li>
-										<li>
-											<a th:href="@{/admin/data-accounts}">Data Accounts</a>
-										</li>
-										<li>
-											<a th:href="@{/admin/data-products}">Data Products</a>
-										</li>
-									</ul>
-								</div>
-							</li>
-							<li class="sidebar-dropdown">
-								<a href="#">
-									<i class="bi bi-x-diamond"></i>
-									<span class="menu-text">Authentication</span>
-								</a>
-								<div class="sidebar-submenu">
-									<ul>
-										<li>
-											<a th:href="@{/admin/login}">Login</a>
-										</li>
-										<li>
-											<a th:href="@{/admin/signup}">Signup</a>
-										</li>
-										<li>
-											<a th:href="@{/admin/error}">Error</a>
-										</li>
-										<li>
-											<a th:href="@{/admin/maintenance}">Maintenance</a>
-										</li>
-									</ul>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<!-- Sidebar menu ends -->
-	
-			</nav>
-			<!-- Sidebar wrapper end -->
+			</div>
+			<!-- Sidebar menu ends -->
 
-			<!-- *************
+		</nav>
+		<!-- Sidebar wrapper end -->
+
+		<!-- *************
 				************ Main container start *************
 			************* -->
-			<div class="main-container">
+		<div class="main-container">
 
-				<!-- Page header starts -->
-				<div class="page-header">
+			<!-- Page header starts -->
+			<div class="page-header">
 
-					<div class="toggle-sidebar" id="toggle-sidebar"><i class="bi bi-list"></i></div>
-	
-					<!-- Breadcrumb start -->
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item">
-							<i class="bi bi-house"></i>
-							<a th:href="@{/admin/}">Home</a>
+				<div class="toggle-sidebar" id="toggle-sidebar"><i class="bi bi-list"></i></div>
+
+				<!-- Breadcrumb start -->
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<i class="bi bi-house"></i>
+						<a th:href="@{/admin/}">Home</a>
+					</li>
+					<li class="breadcrumb-item">Supplier</li>
+					<li class="breadcrumb-item breadcrumb-active" aria-current="page">Add Supplier</li>
+				</ol>
+				<!-- Breadcrumb end -->
+
+				<!-- Header actions ccontainer start -->
+				<div class="header-actions-container">
+
+					<!-- Header actions start -->
+					<ul class="header-actions">
+						<li class="d-none d-md-block">
+							<a href="#" id="countries">
+								<img th:src="@{/assets/images/flags/1x1/vn.svg}" class="flag-img"
+									alt="AI Admin Dashboards" />
+							</a>
 						</li>
-						<li class="breadcrumb-item">Supplier</li>
-						<li class="breadcrumb-item breadcrumb-active" aria-current="page">Add Supplier</li>
-					</ol>
-					<!-- Breadcrumb end -->
-	
-					<!-- Header actions ccontainer start -->
-					<div class="header-actions-container">
-	
-						<!-- Header actions start -->
-						<ul class="header-actions">
-							<li class="d-none d-md-block">
-								<a href="#" id="countries">
-									<img th:src="@{/assets/images/flags/1x1/vn.svg}" class="flag-img"
-										alt="AI Admin Dashboards" />
-								</a>
-							</li>
-							<li class="dropdown">
-								<a href="#" id="userSettings" class="user-settings" data-toggle="dropdown"
-									aria-haspopup="true">
-									<span class="user-name d-none d-md-block">Abigale Heaney</span>
-									<span class="avatar">
-										<img th:src="@{/assets/images/user3.png}" alt="Admin Templates">
-										<span class="status online"></span>
-									</span>
-								</a>
-								<div class="dropdown-menu dropdown-menu-end" aria-labelledby="userSettings">
-									<div class="header-profile-actions">
-										<a th:href="@{/admin/login}">Logout</a>
-									</div>
+						<li class="dropdown">
+							<a href="#" id="userSettings" class="user-settings" data-toggle="dropdown"
+								aria-haspopup="true">
+								<span class="user-name d-none d-md-block">Abigale Heaney</span>
+								<span class="avatar">
+									<img th:src="@{/assets/images/user3.png}" alt="Admin Templates">
+									<span class="status online"></span>
+								</span>
+							</a>
+							<div class="dropdown-menu dropdown-menu-end" aria-labelledby="userSettings">
+								<div class="header-profile-actions">
+									<a th:href="@{/admin/login}">Logout</a>
 								</div>
-							</li>
-						</ul>
-						<!-- Header actions end -->
-	
-					</div>
-					<!-- Header actions ccontainer end -->
-	
+							</div>
+						</li>
+					</ul>
+					<!-- Header actions end -->
+
 				</div>
-				<!-- Page header ends -->
+				<!-- Header actions ccontainer end -->
 
-				<!-- Content wrapper scroll start -->
-				<div class="content-wrapper-scroll">
+			</div>
+			<!-- Page header ends -->
 
-					<!-- Content wrapper start -->
-					<div class="content-wrapper">
+			<!-- Content wrapper scroll start -->
+			<div class="content-wrapper-scroll">
 
-						<!-- Row start -->
-						<div class="row">
-							<div class="col-sm-12 col-12">
+				<!-- Content wrapper start -->
+				<div class="content-wrapper">
+
+					<!-- Row start -->
+					<div class="row">
+						<div class="col-sm-12 col-12">
+							<form th:action="@{/admin/add-to-supplier}" method="post">
 								<div class="card">
 									<div class="card-header">
 										<div class="card-title">Supplier Information</div>
 									</div>
+
 									<div class="card-body">
 
 										<div class="row">
@@ -260,20 +262,30 @@
 														<div class="row">
 															<div class="col-sm-6 col-12">
 																<div class="mb-3">
-																	<label class="form-label">Supplier Name <span class="text-red">*</span></label>
-																	<input type="text" class="form-control" placeholder="Enter Supplier Name" required>
+																	<label class="form-label">Supplier Name <span
+																			class="text-red">*</span></label>
+																	<input type="text" class="form-control"
+																		placeholder="Enter Supplier Name"
+																		name="supplierName" required>
 																</div>
 															</div>
 															<div class="col-sm-6 col-12">
 																<div class="mb-3">
-																	<label class="form-label">Supplier Email <span class="text-red">*</span></label>
-																	<input type="email" inputmode="email" class="form-control" placeholder="Enter Supplier Email" required>
+																	<label class="form-label">Supplier Email <span
+																			class="text-red">*</span></label>
+																	<input type="email" inputmode="email"
+																		class="form-control"
+																		placeholder="Enter Supplier Email"
+																		name="supplierEmail" required>
 																</div>
 															</div>
 															<div class="col-sm-6 col-12">
 																<div class="mb-3">
-																	<label class="form-label">Supplier Address <span class="text-red">*</span></label>
-																	<input type="text" class="form-control" placeholder="Enter Supplier Address">
+																	<label class="form-label">Supplier Address <span
+																			class="text-red">*</span></label>
+																	<input type="text" class="form-control"
+																		placeholder="Enter Supplier Address"
+																		name="supplierAddress">
 																</div>
 															</div>
 														</div>
@@ -284,60 +296,60 @@
 											<div class="col-sm-12 col-12">
 												<div class="custom-btn-group flex-end">
 													<button type="button" class="btn btn-light">Cancel</button>
-													<a href="products.html" class="btn btn-success">Add Supplier</a>
+													<button type="submit" class="btn btn-success">Add Supplier</button>
 												</div>
 											</div>
 										</div>
-
 									</div>
 								</div>
-							</div>
+							</form>
 						</div>
-						<!-- Row end -->
-
 					</div>
-					<!-- Content wrapper end -->
-
-					<!-- App Footer start -->
-					<div class="app-footer">
-						<span>© Bootstrap Gallery 2023</span>
-					</div>
-					<!-- App footer end -->
+					<!-- Row end -->
 
 				</div>
-				<!-- Content wrapper scroll end -->
+				<!-- Content wrapper end -->
+
+				<!-- App Footer start -->
+				<div class="app-footer">
+					<span>© Bootstrap Gallery 2023</span>
+				</div>
+				<!-- App footer end -->
 
 			</div>
-			<!-- *************
+			<!-- Content wrapper scroll end -->
+
+		</div>
+		<!-- *************
 				************ Main container end *************
 			************* -->
 
-		</div>
-		<!-- Page wrapper end -->
+	</div>
+	<!-- Page wrapper end -->
 
-		<!-- *************
+	<!-- *************
 			************ Required JavaScript Files *************
 		************* -->
-		<!-- Required jQuery first, then Bootstrap Bundle JS -->
-		<script th:src="@{/assets/js/jquery.min.js}"></script>
-		<script th:src="@{/assets/js/bootstrap.bundle.min.js}"></script>
-		<script th:src="@{/assets/js/modernizr.js}"></script>
-		<script th:src="@{/assets/js/moment.js}"></script>
+	<!-- Required jQuery first, then Bootstrap Bundle JS -->
+	<script th:src="@{/assets/js/jquery.min.js}"></script>
+	<script th:src="@{/assets/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/assets/js/modernizr.js}"></script>
+	<script th:src="@{/assets/js/moment.js}"></script>
 
-		<!-- *************
+	<!-- *************
 			************ Vendor Js Files *************
 		************* -->
 
-		<!-- Overlay Scroll JS -->
-		<script th:src="@{/assets/vendor/overlay-scroll/jquery.overlayScrollbars.min.js}"></script>
-		<script th:src="@{/assets/vendor/overlay-scroll/custom-scrollbar.js}"></script>
+	<!-- Overlay Scroll JS -->
+	<script th:src="@{/assets/vendor/overlay-scroll/jquery.overlayScrollbars.min.js}"></script>
+	<script th:src="@{/assets/vendor/overlay-scroll/custom-scrollbar.js}"></script>
 
-		<!-- Dropzone JS -->
-		<script th:src="@{/assets/vendor/dropzone/dropzone.min.js}"></script>
+	<!-- Dropzone JS -->
+	<script th:src="@{/assets/vendor/dropzone/dropzone.min.js}"></script>
 
-		<!-- Main Js Required -->
-		<script th:src="@{/assets/js/main.js}"></script>
+	<!-- Main Js Required -->
+	<script th:src="@{/assets/js/main.js}"></script>
 
-	</body>
+</body>
 
 </html>

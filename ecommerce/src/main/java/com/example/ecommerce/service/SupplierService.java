@@ -14,9 +14,13 @@ public class SupplierService {
 	@Autowired
 	private SupplierRepository supplierRepository;
 
-	public Supplier createSupplier(Supplier supplier) {
-		return supplierRepository.save(supplier);
-	}
+    public void addToSupplier(String supplierName, String supplierEmail, String supplierAddress) {
+        Supplier supplier = new Supplier();
+        supplier.setSupplierName(supplierName);
+        supplier.setEmail(supplierEmail);
+        supplier.setAddress(supplierAddress);
+        supplierRepository.save(supplier);
+    }
 
 	public void update(Supplier supplier) {
 		supplierRepository.save(supplier);

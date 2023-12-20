@@ -9,19 +9,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.ecommerce.entity.CartItem;
+import com.example.ecommerce.entity.ShoppingCart;
+import com.example.ecommerce.entity.Account.Customer;
 import com.example.ecommerce.entity.Product.Product;
+import com.example.ecommerce.service.CustomerService;
 import com.example.ecommerce.service.ProductService;
+import com.example.ecommerce.service.ShoppingCartService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
-
+	@Autowired
+	private ShoppingCartService shoppingCartService;
 
 	@Autowired
 	private ProductService productService;
+
+	@Autowired
+	private CustomerService customerService;
 
 	private void addUniqueColorsAndProductsToModel(List<Product> allProducts, Model model) {
 		Set<String> uniqueColors = new HashSet<>();
@@ -92,10 +104,12 @@ public class CustomerController {
 
 		return "shop";
 	}
+
 	@GetMapping("/")
 	public String home() {
 		return "index";
 	}
+
 	@GetMapping("/contact")
 	public String contact() {
 		return "contact";
@@ -105,8 +119,52 @@ public class CustomerController {
 	public String about() {
 		return "about";
 	}
+
+	@GetMapping("/shop-single/{productId}")
+	public String showProductDetails(@PathVariable int productId, HttpServletRequest request, Model model) {
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		Customer customer = customerService.findById(userId);
+		Product product = productService.findById(productId);
+
+		model.addAttribute("product", product);
+		model.addAttribute("customer", customer);
+
+		return "shop-single";
+	}
+
 	@GetMapping("/cart")
-	public String cart() {
+	public String viewCart(HttpServletRequest request, Model model) {
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		Customer customer = customerService.findById(userId);
+		ShoppingCart shoppingCart = shoppingCartService.getUserShoppingCart(customer.getAccountId());
+		List<CartItem> cartItems = shoppingCart.getCartItems();
+
+		model.addAttribute("cartItems", cartItems);
+		double cartTotal = cartItems.stream()
+				.mapToDouble(item -> item.getProduct().getProductPrice() * item.getQuantity()).sum();
+		model.addAttribute("cartTotal", cartTotal);
+
 		return "cart/cart";
+	}
+
+	@GetMapping("/check-out")
+	public String checkout(Model model, HttpServletRequest request) {
+		// @RequestParam int customerId
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		if (userId != null) {
+			Customer customer = customerService.findById(userId);
+			ShoppingCart shoppingCart = shoppingCartService.getUserShoppingCart(customer.getAccountId());
+			List<CartItem> cartItems = shoppingCart.getCartItems();
+			double cartTotal = cartItems.stream()
+					.mapToDouble(item -> item.getProduct().getProductPrice() * item.getQuantity()).sum();
+			model.addAttribute("cartTotal", cartTotal);
+
+			model.addAttribute("cartItems", cartItems);
+			model.addAttribute("customer", customer);
+			return "cart/check-out";
+		} else {
+			// Xử lý khi userId không tồn tại trong session
+			return "redirect:/error";
+		}
 	}
 }
