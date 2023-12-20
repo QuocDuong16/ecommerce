@@ -42,12 +42,7 @@ public class SalesOrderController {
 			e.printStackTrace();
 		}
 
-		return "redirect:/thankyou";
-	}
-
-	@GetMapping("/thankyou")
-	public String thankyou(Model model) {
-		return "thankyou";
+		return "redirect:/customer/thankyou";
 	}
 
 }

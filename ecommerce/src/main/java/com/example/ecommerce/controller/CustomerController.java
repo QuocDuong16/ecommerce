@@ -21,6 +21,7 @@ import com.example.ecommerce.service.CustomerService;
 import com.example.ecommerce.service.ProductService;
 import com.example.ecommerce.service.ShoppingCartService;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
@@ -123,6 +124,14 @@ public class CustomerController {
 	@GetMapping("/shop-single/{productId}")
 	public String showProductDetails(@PathVariable int productId, HttpServletRequest request, Model model) {
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("userId".equals(cookie.getName())) {
+                    userId = Integer.valueOf(cookie.getValue());
+                }
+            }
+        }
 		Customer customer = customerService.findById(userId);
 		Product product = productService.findById(productId);
 
@@ -135,6 +144,14 @@ public class CustomerController {
 	@GetMapping("/cart")
 	public String viewCart(HttpServletRequest request, Model model) {
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("userId".equals(cookie.getName())) {
+                    userId = Integer.valueOf(cookie.getValue());
+                }
+            }
+        }
 		Customer customer = customerService.findById(userId);
 		ShoppingCart shoppingCart = shoppingCartService.getUserShoppingCart(customer.getAccountId());
 		List<CartItem> cartItems = shoppingCart.getCartItems();
@@ -151,6 +168,14 @@ public class CustomerController {
 	public String checkout(Model model, HttpServletRequest request) {
 		// @RequestParam int customerId
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("userId".equals(cookie.getName())) {
+                    userId = Integer.valueOf(cookie.getValue());
+                }
+            }
+        }
 		if (userId != null) {
 			Customer customer = customerService.findById(userId);
 			ShoppingCart shoppingCart = shoppingCartService.getUserShoppingCart(customer.getAccountId());
