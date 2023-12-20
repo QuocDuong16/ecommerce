@@ -1,65 +1,97 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:replace="base::layout(~{::section})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(content)">
+
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
 
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}" />
+	<link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Mukta:300,400,700}" />
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/css/magnific-popup.css}" />
+	<link rel="stylesheet" th:href="@{/css/jquery-ui.css}" />
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+	<link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}" />
+	<link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}" />
+	<link rel="stylesheet" th:href="@{/css/aos.css}" />
 </head>
-<body>
-	<section>
-		<div class="container p-3">
-			<div class="row">
-				<div class="col-md-6 offset-md-3">
-					<div class="card">
-						<div class="card-header text-center fs-4">Register Page</div>
 
-						<th:block th:if="${session.msg}">
+<body class="bg-light">
+	<div class="site-wrap">
+		<header class="site-navbar" role="banner">
+
+		</header>
+		<div>
+
+			<div class="container p-3">
+				<div class="row">
+					<div class="col-md-6 offset-md-3">
+						<div class="card">
+							<div class="card-header text-center fs-4">Register Page</div>
+
 							<th:block th:if="${session.msg}">
-						    <p class="text-center fs-4 text-success" th:text="${session.msg}"></p>
-						    <th:block th:remove="tag"></th:block>
-						</th:block>
+								<th:block th:if="${session.msg}">
+									<p class="text-center fs-4 text-success" th:text="${session.msg}"></p>
+									<th:block th:remove="tag"></th:block>
+								</th:block>
 
-						</th:block>
-						<div class="card-body">
-							<form th:action="@{/createUser}" method="post">
-								<div class="mb-3">
-									<label>Enter Full Name</label> <input type="text"
-										name="fullName" class="form-control">
-								</div>
-								<div class="mb-3">
-									<label>Enter Email</label> <input type="text" name="email"
-										class="form-control">
-								</div>
+							</th:block>
+							<div class="card-body">
+								<form th:action="@{/createUser}" method="post">
+									<div class="mb-3">
+										<label>Enter Full Name</label> <input type="text" name="fullName"
+											class="form-control">
+									</div>
+									<div class="mb-3">
+										<label>Enter Email</label> <input type="text" name="email" class="form-control">
+									</div>
 
-								<div class="mb-3">
-									<label>Enter Address</label> <input type="text" name="address"
-										class="form-control">
-								</div>
-								<div class="mb-3">
-									<label>Enter Phone</label> <input type="text"
-										name="phone" class="form-control">
-								</div>
-								<div class="mb-3">
-									<label>Enter Password</label> <input type="text"
-										name="password" class="form-control">
-								</div>
-								<div class="mb-3">
-								    <label>Select Role</label>
-								    <select name="role" class="form-control">
-								        <option value="customer">User</option>
-								        <option value="seller">Seller</option>
-								    </select>
-								</div>
-								<button class="btn btn-primary col-md-12">Register</button>
-								
-							</form>
-							<a href="login">Ready Login?</a>
+									<div class="mb-3">
+										<label>Enter Address</label> <input type="text" name="address"
+											class="form-control">
+									</div>
+									<div class="mb-3">
+										<label>Enter Phone</label> <input type="text" name="phone" class="form-control">
+									</div>
+									<div class="mb-3">
+										<label>Enter Password</label> <input type="text" name="password"
+											class="form-control">
+									</div>
+									<div class="mb-3">
+										<label>Select Role</label>
+										<select name="role" class="form-control">
+											<option value="customer">User</option>
+											<option value="seller">Seller</option>
+										</select>
+									</div>
+									<button class="btn btn-primary col-md-12">Register</button>
+
+								</form>
+								<a href="login">Ready Login?</a>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</section>
+		<footer class="site-footer border-top">
+
+		</footer>
+	</div>
+
+
+
+
+	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<script th:src="@{/js/jquery-ui.js}"></script>
+	<script th:src="@{/js/popper.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/owl.carousel.min.js}"></script>
+	<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+	<script th:src="@{/js/aos.js}"></script>
+	<script th:src="@{/js/main.js}"></script>
+
 </body>
+
 </html>
