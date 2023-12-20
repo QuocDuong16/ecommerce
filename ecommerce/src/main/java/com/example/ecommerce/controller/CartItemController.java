@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.ecommerce.entity.CartItem;
@@ -19,8 +20,8 @@ import com.example.ecommerce.service.ProductService;
 import com.example.ecommerce.service.ShoppingCartService;
 
 import jakarta.servlet.http.HttpServletRequest;
-
 @Controller
+@RequestMapping("/customer")
 public class CartItemController {
 	@Autowired
 	private CartItemService cartItemService;
@@ -31,22 +32,6 @@ public class CartItemController {
 	@Autowired
 	private CustomerService customerService;
 
-	@GetMapping("/cart")
-	public String viewCart(HttpServletRequest request,Model model) {
-		Integer userId = (Integer) request.getSession().getAttribute("userId");
-    	Customer customer = customerService.findById(userId);
-		ShoppingCart shoppingCart = shoppingCartService.getUserShoppingCart(customer.getAccountId());
-		List<CartItem> cartItems = shoppingCart.getCartItems();
-		
-		model.addAttribute("cartItems", cartItems);
-		double cartTotal = cartItems.stream()
-			    .mapToDouble(item -> item.getProduct().getProductPrice() * item.getQuantity())
-			    .sum();
-		model.addAttribute("cartTotal", cartTotal);
-
-
-		return "cart/cart";
-	}
 
 	@PostMapping("/add-to-cart")
 	public String addToCart(@RequestParam int customerId, @RequestParam int productId, @RequestParam int quantity) {
@@ -57,7 +42,7 @@ public class CartItemController {
 
 		// Thực hiện thêm vào giỏ hàng
 		cartItemService.addToCart(shoppingCart, product, quantity);
-		return "redirect:/shop";
+		return "redirect:/customer/shop";
 
 	}
 
@@ -67,10 +52,11 @@ public class CartItemController {
 		Customer customer = customerService.findById(customerId);
 		ShoppingCart shoppingCart = shoppingCartService.getUserShoppingCart(customer.getAccountId());
 		Product product = productService.findById(productId);
-
+		System.out.println(customerId);
+		System.out.println(productId);
 		cartItemService.removeFromCart(shoppingCart, product);
 
-		return "redirect:/cart";
+		return "redirect:/customer/cart";
 	}
 
 	@PostMapping("/update-total-price")
@@ -80,7 +66,7 @@ public class CartItemController {
 		ShoppingCart shoppingCart = shoppingCartService.getUserShoppingCart(customer.getAccountId());
 		Product product = productService.findById(productId);
 		cartItemService.updateQuantity(shoppingCart, product, direction);
-		return "redirect:/cart";
+		return "redirect:/customer/cart";
 	}
 
 }

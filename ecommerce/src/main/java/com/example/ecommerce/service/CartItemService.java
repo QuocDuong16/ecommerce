@@ -35,12 +35,14 @@ public class CartItemService {
     //remove
     public void removeFromCart(ShoppingCart shoppingCart, Product product) {
     	Optional<CartItem> existingCartItem = cartItemRepository.findById(new CartItemKey(shoppingCart.getShoppingCartId(), product.getProductId()));
-    	if (existingCartItem.isPresent()) {
-            CartItem cartItem = existingCartItem.get();
-            cartItemRepository.delete(cartItem);
-        }else {
-        	throw new RuntimeException("CartItem not found");
-        }
+    	CartItem cartItem = existingCartItem.get();
+    	System.out.println(cartItem.getId().getShoppingCartId());
+    	System.out.println(cartItem.getId().getProductId());
+    	try {
+    	    cartItemRepository.deleteAllInBatch(List.of(cartItem));
+    	} catch (Exception e) {
+    	    e.printStackTrace();
+    	}
 
     }
     //update

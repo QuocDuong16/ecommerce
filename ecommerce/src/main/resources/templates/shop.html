@@ -38,13 +38,13 @@
 								data-aos="fade-up">
 								<div class="block-4 text-center border">
 									<figure class="block-4-image">
-										<a th:href="@{'/shop-single/' + ${product.productId}}">
+										<a th:href="@{'shop-single/' + ${product.productId}}">
 											<img th:src="@{'/images/' + ${product.productImage}}"
 												alt="Image placeholder" class="img-fluid">
 										</a>
 									</figure>
 									<div class="block-4-text p-4">
-										<h3><a th:href="@{'/shop-single/' + ${product.productId}}" th:text="${product.productName}"></a></h3>
+										<h3><a th:href="@{'shop-single/' + ${product.productId}}" th:text="${product.productName}"></a></h3>
 										<p class="mb-0" th:text="${product.productDescription}"></p>
 										<p class="text-primary font-weight-bold" th:text="${product.productPrice}"></p>
 									</div>
@@ -73,7 +73,7 @@
 						<div class="border p-4 rounded mb-4">
 
 							<!--Tim kiem bang Ten -->
-							<form th:action="@{/search}" method="get">
+							<form th:action="@{search}" method="get">
 								<input type="text" name="productName" placeholder="Please enter name"
 									class="form-control my-2" />
 								<button type="submit" class="btn btn-info my-3">Search</button>
@@ -82,7 +82,7 @@
 							<!-- Tim kiem theo gia-->
 							<div class="mb-4">
 								<h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Price</h3>
-								<form id="priceFilterForm" th:action="@{/searchprice}" method="get">
+								<form id="priceFilterForm" th:action="@{searchprice}" method="get">
 									<div class="form-row">
 										<div class="col-md-6 mb-3">
 											<label for="minPrice">Min Price</label>
@@ -101,7 +101,7 @@
 							<!--Tim kiem bang mau -->
 							<h3 class="mb-3 h6 text-uppercase text-black d-block">Color</h3>
 							<div id="colorFilter" th:each="color : ${uniqueProductColors}" class="mb-4">
-								<a th:href="@{'/searchcolor?productColor=' + ${color}}"
+								<a th:href="@{'searchcolor?productColor=' + ${color}}"
 									class="d-flex color-item align-items-center">
 									<span class="color d-inline-block rounded-circle mr-2"
 										th:style="'background-color:' + ${color}"></span>

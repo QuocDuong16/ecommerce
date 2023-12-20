@@ -134,7 +134,7 @@
 										</td>
 										<td th:text="'$' + ${item.product.productPrice}"></td>
 										<td>
-											<form th:action="@{'/update-total-price'}" class="js-update-form"
+											<form th:action="@{'/customer/update-total-price'}" class="js-update-form"
 												method="post">
 												<div class="input-group mb-3" style="max-width: 120px;">
 
@@ -161,7 +161,7 @@
 										<td th:text="'$' + ${item.product.productPrice * item.quantity}"
 											class="js-total"></td>
 										<td>
-											<form th:action="@{'/remove-from-cart'}" method="post">
+											<form th:action="@{'/customer/remove-from-cart'}" method="post">
 												<input type="hidden" name="customerId"
 													th:value="${item.shoppingCart.customer.accountId}" />
 												<input type="hidden" name="productId"
@@ -230,8 +230,8 @@
 
 								<div class="row">
 									<div class="col-md-12">
-										<button class="btn btn-primary btn-lg py-3 btn-block"
-											onclick="window.location='/check-out'">Proceed To Checkout</button>
+										<a class="btn btn-primary btn-lg py-3 btn-block"
+											th:href="@{check-out}">Proceed To Checkout</a>
 									</div>
 								</div>
 							</div>
