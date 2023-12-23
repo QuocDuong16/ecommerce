@@ -192,4 +192,9 @@ public class CustomerController {
 			return "redirect:/error";
 		}
 	}
+	
+	@GetMapping("/thankyou")
+	public String thankyou(Model model) {
+		return "thankyou";
+	}
 }
